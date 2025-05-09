@@ -1,0 +1,73 @@
+/* reset.css */
+
+/* Box sizing model */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin and padding */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ul,
+ol,
+li,
+form,
+input,
+button {
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove list styles */
+ul,
+ol {
+    list-style: none;
+}
+
+/* Set default font and text color */
+body {
+    font-family: sans-serif;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Normalize form elements */
+button {
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+input,
+textarea,
+select,
+button {
+    font: inherit;
+    color: inherit;
+}
+
+/* Remove the default focus ring in some browsers */
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+    outline: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
