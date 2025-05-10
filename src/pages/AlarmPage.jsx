@@ -1,11 +1,15 @@
 import React from "react";
 import AlarmForm from "../Components/AlarmForm";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 
 const AlarmPage = () => {
   return (
     <div style={pageStyle}>
+      <Header />
       <h1 style={headingStyle}>تنظیم هشدار خودرو</h1>
       <AlarmForm />
+      <Footer />
     </div>
   );
 };

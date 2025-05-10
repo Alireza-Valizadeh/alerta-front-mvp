@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import PhoneInput from "../Components/PhoneInput";
 import OTPInput from "../Components/OTPInput";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 
 const LoginPage = () => {
-  const [step, setStep] = useState("phone"); // 'phone' or 'otp'
+  const [step, setStep] = useState("phone");
   const [phone, setPhone] = useState("");
 
   const handlePhoneSubmit = () => {
@@ -11,33 +13,24 @@ const LoginPage = () => {
       alert("لطفاً شماره معتبر وارد کنید");
       return;
     }
-    // TODO: Call backend to send OTP here
     setStep("otp");
   };
 
   return (
-    <div style={containerStyle}>
-      <h1 style={headingStyle}>ورود</h1>
-      {step === "phone" ? (
-        <PhoneInput phone={phone} setPhone={setPhone} onSubmit={handlePhoneSubmit} />
-      ) : (
-        <OTPInput phone={phone} />
-      )}
+    <div className="login-background-wrapper">
+      <div className="page-wrapper">
+        <div className="page-content login-container">
+          <Header />
+          {step === "phone" ? (
+            <PhoneInput phone={phone} setPhone={setPhone} onSubmit={handlePhoneSubmit} />
+          ) : (
+            <OTPInput phone={phone} />
+          )}
+        </div>
+        <Footer />
+      </div>
     </div>
   );
-};
-
-const containerStyle = {
-  padding: "2rem",
-  direction: "rtl",
-  textAlign: "right",
-  backgroundColor: "#e6f0ff",
-  minHeight: "100vh",
-};
-
-const headingStyle = {
-  color: "#0a2540",
-  marginBottom: "2rem",
 };
 
 export default LoginPage;
