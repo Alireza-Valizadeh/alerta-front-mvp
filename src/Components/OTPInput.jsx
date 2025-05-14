@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { verifyOTP } from "../services/api";
 
 const OTPInput = ({ phone }) => {
   const [code, setCode] = useState();
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    if (code.length === 4) {
-      navigate("/alarms");
-    } else {
-      alert("کد تایید باید ۴ رقمی باشد");
-    }
+    verifyOTP(phone, code)
+      .then((response) => {
+        console.log(response);
+        navigate("/alarms");
+      })
+      .catch((error) => {
+        const message = error?.response?.data?.message;
+        console.log({ message });
+        alert(message || "Error!");
+      });
   };
 
   return (

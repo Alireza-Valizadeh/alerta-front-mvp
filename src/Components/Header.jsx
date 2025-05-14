@@ -14,7 +14,7 @@ const Header = () => {
 
       {/* Title - center */}
       <div style={titleContainerStyle}>
-        <h1 style={titleStyle}>هانتر ۲۴</h1>
+        <h1 style={titleStyle}>آلرتا!</h1>
       </div>
 
       {/* Logo - left */}

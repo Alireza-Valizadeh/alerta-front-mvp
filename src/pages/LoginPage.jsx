@@ -3,17 +3,23 @@ import PhoneInput from "../Components/PhoneInput";
 import OTPInput from "../Components/OTPInput";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import { sendOTP } from "../services/api";
 
 const LoginPage = () => {
   const [step, setStep] = useState("phone");
   const [phone, setPhone] = useState("");
 
   const handlePhoneSubmit = () => {
-    if (!phone || phone.length < 10) {
+    if (!phone || phone.length < 11) {
       alert("لطفاً شماره معتبر وارد کنید");
       return;
     }
-    setStep("otp");
+    sendOTP(phone)
+      .then((response) => {
+        console.log(response);
+        setStep("otp");
+      })
+      .catch((e) => console.log(e));
   };
 
   return (
