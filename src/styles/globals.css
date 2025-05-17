@@ -344,3 +344,97 @@ footer {
     direction: rtl;
     text-align: right;
 }
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    direction: rtl;
+    font-family: "Vazir", sans-serif;
+}
+
+.profile-card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 500px;
+    width: 100%;
+    text-align: right;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.profile-icon {
+    color: #007bff;
+}
+
+.profile-name {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #0a2540;
+}
+
+.profile-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    margin-top: 0.4rem;
+}
+
+.profile-status.active {
+    color: green;
+}
+
+.profile-status.inactive {
+    color: #c0392b;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.profile-row {
+    display: flex;
+    align-items: center;
+}
+
+.profile-label {
+    min-width: 85px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.profile-value {
+    flex: 1;
+    color: #222;
+    word-break: break-word;
+}
+
+.profile-value input,
+.profile-value select {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.95rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: inherit;
+    direction: rtl;
+    background-color: #fff;
+}
+
+.profile-actions {
+    margin-top: 1.5rem;
+    text-align: left;
+}

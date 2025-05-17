@@ -8,6 +8,14 @@ const api = axios.create({
   },
 });
 
+api.interceptors.request.use((config) => {
+  const token = Cookies.get("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 // Function to send phone number for OTP
 export const sendOTP = async (phone) => {
   const response = await api.post("/auth/login", { phone });
@@ -20,12 +28,11 @@ export const verifyOTP = async (phone, code) => {
   const response = await api.post("/auth/login/validate", { phone, code });
   const token = response.data.access_token;
   Cookies.set("token", token, {
-    expires: 31, // days
-    secure: true,
-    sameSite: "Strict", // adjust for cross-origin if needed
+    expires: 31,
     path: "/",
+    sameSite: "Lax", // or "None" if needed across subdomains
+    secure: window.location.protocol === "https", // only secure when over HTTPS
   });
-  api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   return response.data;
 };
 
@@ -45,6 +52,11 @@ export const getMakeModels = async (makeId) => {
   return response.data;
 };
 
+export const getUsersProfile = async () => {
+  const response = await api.get("/users/profile");
+  return response.data;
+};
+
 // Function to create an alarm
 export const createAlarm = async (alarmData) => {
   try {
@@ -54,4 +66,9 @@ export const createAlarm = async (alarmData) => {
     console.error("Error creating alarm:", error);
     throw new Error("Failed to create alarm");
   }
+};
+
+export const updateUserProfile = async (userId, data) => {
+  const response = await api.put(`/users/${userId}`, data);
+  return response.data;
 };
