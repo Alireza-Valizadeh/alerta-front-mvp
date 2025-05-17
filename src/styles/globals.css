@@ -241,6 +241,7 @@ form {
         height: 50px;
         position: relative;
     }
+
     .login-background-wrapper,
     .page-wrapper {
         min-height: 89vh;
@@ -305,4 +306,41 @@ footer {
     opacity: 1;
     pointer-events: none;
     z-index: 0;
+}
+
+.alarm-form {
+    text-align: right;
+    max-width: 400px;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    direction: rtl;
+    margin: 0 auto;
+}
+
+.alarm-form label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: bold;
+    color: #0a2540;
+}
+
+.alarm-form>*:not(:last-child) {
+    margin-bottom: 1.2rem;
+}
+
+.alarm-button {
+    padding: 0.6rem 1.2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.react-select__control {
+    direction: rtl;
+    text-align: right;
 }

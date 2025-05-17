@@ -5,21 +5,29 @@ import Footer from "../Components/Footer";
 
 const AlarmPage = () => {
   return (
-    <div style={pageStyle}>
+    <div style={wrapperStyle}>
       <Header />
-      <h1 style={headingStyle}>تنظیم هشدار خودرو</h1>
-      <AlarmForm />
+      <main style={mainStyle}>
+        <h1 style={headingStyle}>تنظیم هشدار خودرو</h1>
+        <AlarmForm />
+      </main>
       <Footer />
     </div>
   );
 };
 
-const pageStyle = {
-  padding: "2rem",
-  direction: "rtl",
-  textAlign: "right",
-  backgroundColor: "#e6f0ff",
+const wrapperStyle = {
+  display: "flex",
+  flexDirection: "column",
   minHeight: "100vh",
+  direction: "rtl",
+  backgroundColor: "#e6f0ff",
+};
+
+const mainStyle = {
+  flex: 1,
+  padding: "2rem",
+  textAlign: "right",
 };
 
 const headingStyle = {
