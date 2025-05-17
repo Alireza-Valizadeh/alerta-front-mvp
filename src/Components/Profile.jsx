@@ -10,7 +10,7 @@ const Profile = ({ user }) => {
     firstName: user.firstName || "",
     lastName: user.lastName || "",
     email: user.email || "",
-    gender: user.gender || "NOT_SPECIFIED",
+    gender: user.gender || "Not Specified",
   });
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Profile = ({ user }) => {
         firstName: user.firstName || "",
         lastName: user.lastName || "",
         email: user.email || "",
-        gender: user.gender || "NOT_SPECIFIED",
+        gender: user.gender || "Not Specified",
       });
     }
   }, [user]);
@@ -101,7 +101,7 @@ const Profile = ({ user }) => {
                 onChange={(selected) =>
                   setFormData((prev) => ({
                     ...prev,
-                    gender: selected ? selected.value : "NOT_SPECIFIED",
+                    gender: selected ? selected.value : "Not Specified",
                   }))
                 }
                 placeholder="انتخاب جنسیت"
