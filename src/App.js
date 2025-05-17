@@ -5,15 +5,32 @@ import AlarmPage from './pages/AlarmPage';
 import './styles/reset.css';
 import './styles/globals.css';
 import './assets/vazir-font.css'
+import PrivateRoute from './Components/PrivateRoute';
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   return (
     <Router>
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: { direction: "rtl", fontFamily: "Vazir" },
+        }}
+      />
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/otp" element={<LoginPage />} />
-        <Route path="/alarms" element={<AlarmPage />} />
+        <Route
+          path="/*"
+          element={
+            <PrivateRoute>
+              <Routes>
+                <Route path="/alarms" element={<AlarmPage />} />
+              </Routes>
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Router>
   );

@@ -20,7 +20,7 @@ export const verifyOTP = async (phone, code) => {
   const response = await api.post("/auth/login/validate", { phone, code });
   const token = response.data.access_token;
   Cookies.set("token", token, {
-    expires: 7, // days
+    expires: 31, // days
     secure: true,
     sameSite: "Strict", // adjust for cross-origin if needed
     path: "/",

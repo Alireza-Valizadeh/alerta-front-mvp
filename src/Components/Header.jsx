@@ -1,11 +1,12 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 const Header = () => {
   return (
     <header style={headerStyle}>
       {/* Hamburger Menu - right */}
       <div style={hamburgerContainerStyle}>
-        <button style={hamburgerStyle} onClick={() => alert("Menu clicked!")}>
+        <button style={hamburgerStyle} onClick={() => toast.success("Not implemented")}>
           <span style={bar}></span>
           <span style={bar}></span>
           <span style={bar}></span>

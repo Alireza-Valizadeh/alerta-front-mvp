@@ -4,6 +4,7 @@ import OTPInput from "../Components/OTPInput";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { sendOTP } from "../services/api";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const [step, setStep] = useState("phone");
@@ -11,12 +12,13 @@ const LoginPage = () => {
 
   const handlePhoneSubmit = () => {
     if (!phone || phone.length < 11) {
-      alert("لطفاً شماره معتبر وارد کنید");
+      toast.error("شماره موبایل باید 11 رقم باشد!");
       return;
     }
     sendOTP(phone)
       .then((response) => {
         console.log(response);
+        toast.success("کد تایید به شماره شما ارسال شد!");
         setStep("otp");
       })
       .catch((e) => console.log(e));

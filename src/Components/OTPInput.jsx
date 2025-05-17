@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { verifyOTP } from "../services/api";
+import toast from "react-hot-toast";
 
 const OTPInput = ({ phone }) => {
   const [code, setCode] = useState();
@@ -10,12 +11,13 @@ const OTPInput = ({ phone }) => {
     verifyOTP(phone, code)
       .then((response) => {
         console.log(response);
+        toast.success("با موفقیت وارد شدید!");
         navigate("/alarms");
       })
       .catch((error) => {
         const message = error?.response?.data?.message;
         console.log({ message });
-        alert(message || "Error!");
+        toast.error(message || "مشکلی پیش آمده است!");
       });
   };
 

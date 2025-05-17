@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { createAlarm, getAlarmCreationData, getMakeModels, getStateCities } from "../services/api";
+import toast from "react-hot-toast";
 
 const toPersianDigits = (str) => str.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
 
@@ -168,11 +169,11 @@ const AlarmForm = () => {
     createAlarm(data)
       .then((response) => {
         console.log(response);
-        alert("هشدار ثبت شد!");
+        toast.success("هشدار ثبت شد!");
       })
       .catch((error) => {
         console.error(error);
-        alert("هشدار ثبت نشد!", error?.response?.data?.message);
+        toast.error(error?.response?.data?.message || "هشدار ثبت نشد!");
       });
   };
 
