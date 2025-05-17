@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaUser, FaPhone, FaEnvelope, FaVenusMars, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
 import { updateUserProfile } from "../services/api";
@@ -125,7 +125,9 @@ const Profile = ({ user }) => {
           </div>
 
           <div className="profile-actions">
-            <button disabled={!isChanged} onClick={handleSave}>ذخیره تغییرات</button>
+            <button disabled={!isChanged} onClick={handleSave}>
+              ذخیره تغییرات
+            </button>
           </div>
         </div>
       </div>
