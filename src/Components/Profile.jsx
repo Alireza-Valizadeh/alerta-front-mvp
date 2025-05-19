@@ -125,7 +125,7 @@ const Profile = ({ user }) => {
           </div>
 
           <div className="profile-actions">
-            <button disabled={!isChanged} onClick={handleSave}>
+            <button className="submit-button" disabled={!isChanged} onClick={handleSave}>
               ذخیره تغییرات
             </button>
           </div>

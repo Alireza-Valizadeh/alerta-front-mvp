@@ -8,6 +8,7 @@ import './assets/vazir-font.css'
 import PrivateRoute from './Components/PrivateRoute';
 import { Toaster } from 'react-hot-toast';
 import ProfilePage from './pages/ProfilePage';
+import LandingPage from './pages/LandingPage';
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
         }}
       />
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/otp" element={<LoginPage />} />
         <Route

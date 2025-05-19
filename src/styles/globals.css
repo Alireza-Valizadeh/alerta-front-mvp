@@ -25,6 +25,8 @@ html,
 #root {
     height: 100%;
     overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 70px;
 }
 
 /* Headings */
@@ -36,6 +38,10 @@ h5,
 h6 {
     color: #0a2540;
     margin-bottom: 1.5rem;
+}
+
+a {
+    text-decoration: none;
 }
 
 /* Label */
@@ -76,7 +82,6 @@ button {
     display: block;
     width: 100%;
     padding: 0.85rem;
-    background-image: linear-gradient(to right, #007bff, #0056d2);
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -84,11 +89,15 @@ button {
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.3s;
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 2px 0px rgba(0, 123, 255, 0.3);
+}
+
+.submit-button {
+    background-image: linear-gradient(to right, #007bff, #0056d2);
 }
 
 button:hover:not(:disabled) {
-    background-color: #0056d2;
+    background-color: #f0ffff;
 }
 
 button:disabled {
@@ -238,13 +247,9 @@ form {
 
     .page-footer {
         font-size: 0.65rem;
-        height: 50px;
+        height: 70px;
         position: relative;
-    }
-
-    .login-background-wrapper,
-    .page-wrapper {
-        min-height: 89vh;
+        bottom: 0;
     }
 
 

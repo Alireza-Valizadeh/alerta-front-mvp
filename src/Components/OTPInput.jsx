@@ -35,7 +35,7 @@ const OTPInput = ({ phone }) => {
         max="9999"
         min="1111"
       />
-      <button onClick={handleSubmit}>ورود</button>
+      <button className="submit-button" onClick={handleSubmit}>ورود</button>
     </div>
   );
 };

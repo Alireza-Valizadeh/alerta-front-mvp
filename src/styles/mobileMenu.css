@@ -1,0 +1,212 @@
+/* src/components/MobileMenu.css */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    /* Below menu, above content */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.mobile-menu.open+.mobile-menu-overlay,
+/* This might not work due to sibling combinator limitations with React conditional rendering */
+.mobile-menu-overlay.active {
+    /* We'll add 'active' class from JS if needed or just control via isOpen prop of MobileMenu */
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    /* For RTL, starts from right */
+    bottom: 0;
+    width: 280px;
+    /* Adjust as needed */
+    max-width: 80%;
+    background-color: #fff;
+    z-index: 1050;
+    /* Above overlay */
+    transform: translateX(100%);
+    /* Off-screen to the right */
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    /* Ensure content inside is RTL */
+    font-family: 'Vazir', sans-serif;
+}
+
+.mobile-menu.open {
+    transform: translateX(0);
+    /* Slides in */
+}
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.mobile-menu-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.mobile-menu-profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.mobile-menu-profile-icon-placeholder {
+    color: #0056d2;
+    background-color: #e6f0ff;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+
+.mobile-menu-profile-name {
+    font-weight: 600;
+    color: #0a2540;
+    font-size: 0.95rem;
+}
+
+.mobile-menu-close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    padding: 0.5rem;
+    width: 20%;
+}
+
+.mobile-menu-close-btn:hover {
+    color: #000;
+}
+
+.mobile-menu-nav {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-top: 1rem;
+}
+
+.mobile-menu-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.5rem;
+    text-decoration: none;
+    color: #0a2540;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-bottom: 1px solid #f5f5f5;
+    /* Subtle separator */
+}
+
+.mobile-menu-link:hover {
+    background-color: #e6f0ff;
+    color: #0056d2;
+}
+
+.mobile-menu-link svg {
+    font-size: 1.3rem;
+    /* Icon size */
+    min-width: 20px;
+    /* Ensure consistent spacing */
+    color: #007bff;
+    /* Icon color */
+}
+
+.mobile-menu-link:hover svg {
+    color: #0056d2;
+}
+
+
+.mobile-menu-signout-btn {
+    width: 100%;
+    text-align: right;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #c0392b;
+    /* Reddish for sign out */
+}
+
+.mobile-menu-signout-btn svg {
+    color: #c0392b;
+}
+
+.mobile-menu-signout-btn:hover {
+    color: #a93226;
+    background-color: #fdecea;
+}
+
+.mobile-menu-signout-btn:hover svg {
+    color: #a93226;
+}
+
+
+.mobile-menu-footer {
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+    border-top: 1px solid #e0e0e0;
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    /* Below menu, above page content */
+    opacity: 0;
+    /* Start fully transparent */
+    visibility: hidden;
+    /* Start hidden (not interactive, not visible) */
+    /* Transition for fade out */
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+}
+
+.mobile-menu-overlay.open {
+    opacity: 1;
+    /* Target state: fully opaque */
+    visibility: visible;
+    /* Target state: visible and interactive */
+    /* Transition for fade in */
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0s;
+}
+
+.mobile-menu-overlay.close {
+    opacity: 0;
+    /* Start fully transparent */
+    visibility: hidden;
+    /* Start hidden (not interactive, not visible) */
+    /* Transition for fade out */
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+}

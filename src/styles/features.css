@@ -1,0 +1,84 @@
+/* src/components/Features.css */
+.features-section {
+    padding: 4rem 2rem;
+    background-color: #e6f0ff;
+    /* Using your body background */
+    direction: rtl;
+}
+
+.features-section h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #0a2540;
+    margin-bottom: 3rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.feature-item {
+    background-color: #fff;
+    padding: 1.8rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    text-align: right;
+    /* Ensure text aligns right */
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    /* Adjust if using actual icons */
+    color: #007bff;
+    margin-bottom: 1rem;
+    display: block;
+    /* Make it block to appear above title */
+}
+
+.feature-icon span {
+    /* If using a span for placeholder */
+    display: inline-block;
+    background-color: #007bff1a;
+    /* Light background for icon placeholder */
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    line-height: 30px;
+    /* Adjust for vertical centering of char */
+    text-align: center;
+}
+
+
+.feature-item h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #003366;
+    margin-bottom: 0.75rem;
+}
+
+.feature-item p {
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .features-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .feature-item h3 {
+        font-size: 1.15rem;
+    }
+}

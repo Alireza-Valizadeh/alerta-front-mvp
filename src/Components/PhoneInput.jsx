@@ -10,7 +10,7 @@ const PhoneInput = ({ phone, setPhone, onSubmit }) => {
         onChange={(e) => setPhone(e.target.value)}
         placeholder="مثلاً 09123456789"
       />
-      <button onClick={onSubmit}>ارسال کد تایید</button>
+      <button className="submit-button" onClick={onSubmit}>ارسال کد تایید</button>
     </div>
   );
 };

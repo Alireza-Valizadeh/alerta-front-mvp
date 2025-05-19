@@ -1,31 +1,21 @@
 import React from "react";
+import Navbar from "../Components/Navbar";
+import FooterV2 from "../Components/FooterV2";
 import AlarmForm from "../Components/AlarmForm";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer";
 
 const AlarmPage = () => {
   return (
-    <div style={wrapperStyle}>
-      <Header />
-      <main style={mainStyle}>
+    <div className="page-wrapper">
+      <Navbar />
+      <main style={mainContentStyle} className="page-content">
         <h1 style={headingStyle}>تنظیم هشدار خودرو</h1>
         <AlarmForm />
       </main>
-      <Footer />
+      <FooterV2 />
     </div>
   );
 };
-
-const wrapperStyle = {
-  display: "flex",
-  flexDirection: "column",
-  minHeight: "100vh",
-  direction: "rtl",
-  backgroundColor: "#e6f0ff",
-};
-
-const mainStyle = {
-  flex: 1,
+const mainContentStyle = {
   padding: "2rem",
   textAlign: "right",
 };
