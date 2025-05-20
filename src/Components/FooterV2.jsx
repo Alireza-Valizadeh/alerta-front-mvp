@@ -12,6 +12,19 @@ const FooterV2 = () => {
         <span className="footer-copy">
           © {currentYear} {startupName}. تمام حقوق محفوظ است.
         </span>
+        <a
+          referrerPolicy="origin"
+          target="_blank"
+          href="https://trustseal.enamad.ir/?id=612815&Code=lgOBymgEumdUYmexyXOg5oZogBkTmVcl"
+        >
+          <img
+            referrerpolicy="origin"
+            src="https://trustseal.enamad.ir/logo.aspx?id=612815&Code=lgOBymgEumdUYmexyXOg5oZogBkTmVcl"
+            alt=""
+            style={{ cursor: "pointer" }}
+            code="lgOBymgEumdUYmexyXOg5oZogBkTmVcl"
+          />
+        </a>
         {/* Optional: Add social media links or other footer links here */}
         {/* <div className="footer-links">
           <a href="/privacy">حریم خصوصی</a>
