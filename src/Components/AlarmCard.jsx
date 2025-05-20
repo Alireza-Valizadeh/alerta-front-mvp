@@ -1,57 +1,116 @@
 // src/components/AlarmCard.js
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiEdit, FiTag, FiMapPin, FiCalendar, FiDollarSign, FiChevronsLeft } from "react-icons/fi"; // Using react-icons
+import {
+  FiEdit,
+  FiTag,
+  FiMapPin,
+  FiCalendar,
+  FiDollarSign,
+  FiDroplet,
+  FiZap,
+  FiShield,
+  FiCpu,
+  FiLayers,
+  FiGitMerge,
+  FiChevronUp,
+  FiChevronDown,
+  FiTrash2,
+} from "react-icons/fi"; // Using react-icons
 import "../styles/AlarmCard.css"; // We'll create this CSS file
 
 // Helper to display a range or a single value nicely
 const formatRange = (min, max, unit = "", prefix = "") => {
   if (min && max) {
-    if (min.value === max.value) return `${prefix}${min.label}`;
-    return `${prefix}از ${min.label} تا ${max.label}`;
+    if (min === max) return `${prefix}${min}`;
+    return `${prefix}از ${min} تا ${max}`;
   }
-  if (min) return `${prefix}حداقل ${min.label}`;
-  if (max) return `${prefix}حداکثر ${max.label}`;
+  if (min) return `${prefix}حداقل ${min}`;
+  if (max) return `${prefix}حداکثر ${max}`;
   return unit ? `نامشخص ${unit}` : "نامشخص";
 };
 
 // Helper to display multiple selected items (like colors)
 const formatMultiSelect = (items) => {
   if (!items || items.length === 0) return "نامشخص";
-  return items.map((item) => item.label).join("، ");
+  return items.map((item) => item.title).join("، ");
 };
 
-const AlarmCard = ({ alarm }) => {
+const AlarmCard = ({ alarm, onDeleteAlarm }) => {
   const navigate = useNavigate();
-
-  const handleEdit = () => {
-    // Navigate to the AlarmPage (which contains AlarmForm)
-    // and pass the alarm data in the state for prefilling.
-    // The route for AlarmPage should be something like "/create-alarm" or "/edit-alarm"
+  const [isExpanded, setIsExpanded] = useState(false);
+  const handleEdit = (e) => {
+    e.stopPropagation();
     navigate("/alarms/edit", { state: { alarmToEdit: alarm } });
   };
 
   // A simple generated name if one isn't provided
-  const alarmName =
-    alarm.name ||
-    `${alarm.make?.label || ""} ${alarm.model?.label || "خودرو"} (${alarm.city?.label || "شهرهای مختلف"})`;
+  const alarmName = alarm.name || ` ${alarm.model?.title || "خودرو"} (${alarm.city?.title || "شهرهای مختلف"})`;
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    onDeleteAlarm(alarm.id);
+  };
+
+  const additionalDetails = [
+    { label: "رنگ بدنه", value: formatMultiSelect(alarm.colors), icon: <FiDroplet className="alarm-detail-icon" /> },
+    { label: "نوع سوخت", value: formatMultiSelect(alarm.fuelTypes), icon: <FiZap className="alarm-detail-icon" /> },
+    {
+      label: "وضعیت شاسی",
+      value: formatMultiSelect(alarm.chassisStates),
+      icon: <FiShield className="alarm-detail-icon" />,
+    },
+    {
+      label: "وضعیت موتور",
+      value: formatMultiSelect(alarm.engineStates),
+      icon: <FiCpu className="alarm-detail-icon" />,
+    },
+    {
+      label: "وضعیت بدنه",
+      value: formatMultiSelect(alarm.bodyStates),
+      icon: <FiLayers className="alarm-detail-icon" />,
+    },
+    { label: "گیربکس", value: formatMultiSelect(alarm.gearboxes), icon: <FiGitMerge className="alarm-detail-icon" /> },
+  ];
 
   return (
-    <div className="alarm-card">
+    <div className={`alarm-card ${isExpanded ? "expanded" : ""}`} onClick={toggleExpand}>
       <div className="alarm-card-header">
+        {/* Action Icons - Upper Left (visually top-right in RTL) */}
+        <div className="alarm-card-actions">
+          <button onClick={handleEdit} className="action-icon-button edit-button" aria-label="ویرایش هشدار">
+            <FiEdit />
+          </button>
+          <button onClick={handleDelete} className="action-icon-button delete-button" aria-label="حذف هشدار">
+            <FiTrash2 color="red" enableBackground={"true"} />
+          </button>
+          <button
+            onClick={toggleExpand}
+            className="action-icon-button expand-button"
+            aria-label={isExpanded ? "بستن جزئیات" : "جزئیات بیشتر"}
+            aria-expanded={isExpanded}
+          >
+            {isExpanded ? <FiChevronUp /> : <FiChevronDown />}
+          </button>
+        </div>
         <h3>{alarmName}</h3>
       </div>
       <div className="alarm-card-body">
         <div className="alarm-detail-item">
           <FiTag className="alarm-detail-icon" />
           <span>
-            <strong>برند و مدل:</strong> {alarm.make?.label || "نامشخص"} - {alarm.model?.label || "نامشخص"}
+            <strong>برند و مدل:</strong>
+            {alarm.model?.title || "نامشخص"}
           </span>
         </div>
         <div className="alarm-detail-item">
           <FiMapPin className="alarm-detail-icon" />
           <span>
-            <strong>موقعیت:</strong> {alarm.state?.label || "نامشخص"} - {alarm.city?.label || "نامشخص"}
+            <strong>موقعیت:</strong> {alarm.state?.title || "نامشخص"} - {alarm.city?.title || "نامشخص"}
           </span>
         </div>
         <div className="alarm-detail-item">
@@ -66,21 +125,27 @@ const AlarmCard = ({ alarm }) => {
             <strong>سال ساخت:</strong> {formatRange(alarm.minYear, alarm.maxYear, "سال")}
           </span>
         </div>
-        {alarm.colors && alarm.colors.length > 0 && (
-          <div className="alarm-detail-item">
-            <FiChevronsLeft className="alarm-detail-icon" /> {/* Placeholder icon for color */}
-            <span>
-              <strong>رنگ:</strong> {formatMultiSelect(alarm.colors)}
-            </span>
-          </div>
-        )}
+
+        {/* Expanded section */}
+        <div className={`alarm-card-expanded-details ${isExpanded ? "open" : ""}`}>
+          {additionalDetails.map((detail, index) =>
+            // Only render if the value is not "نامشخص" or if you always want to show the title
+            detail.value && detail.value !== "نامشخص" ? (
+              <div key={index} className="alarm-detail-item">
+                {detail.icon}
+                <span>
+                  <strong>{detail.label}:</strong> {detail.value}
+                </span>
+              </div>
+            ) : null
+          )}
+        </div>
       </div>
-      <div className="alarm-card-footer">
+      {/* <div className="alarm-card-footer">
         <button onClick={handleEdit} className="alarm-card-edit-button">
           <FiEdit /> ویرایش هشدار
         </button>
-        {/* You could add a delete button here as well */}
-      </div>
+      </div> */}
     </div>
   );
 };

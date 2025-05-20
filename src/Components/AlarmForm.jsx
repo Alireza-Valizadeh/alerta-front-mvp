@@ -1,47 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import Select from "react-select";
 import { createAlarm, getAlarmCreationData, getMakeModels, getStateCities, updateAlarm } from "../services/api";
 import toast from "react-hot-toast";
-
-const toPersianDigits = (str) => str.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-
-const hardcodedPrices = [
-  ...Array.from({ length: 20 }, (_, i) => {
-    const value = 50000000 + i * 50000000; // 50M to 1B
-    const million = value / 1000000;
-    return {
-      value,
-      label: `${toPersianDigits(million)} میلیون تومان`,
-    };
-  }),
-  ...[1250, 1500, 1750, 2000, 2500, 3000, 4000].map((million) => ({
-    value: million * 1000000,
-    label: `${toPersianDigits(million)} میلیون تومان`,
-  })),
-];
-
-const hardcodedYears = [
-  ...Array.from({ length: 1404 - 1366 + 1 }, (_, i) => {
-    const year = 1366 + i;
-    return { value: year, label: toPersianDigits(year) };
-  }),
-  ...Array.from({ length: 2026 - 1980 + 1 }, (_, i) => {
-    const year = 1980 + i;
-    return { value: year, label: toPersianDigits(year) };
-  }),
-];
-
-const hardcodedDurations = Array.from({ length: 12 }, (_, i) => {
-  const month = i + 1;
-  return { value: month, label: `${toPersianDigits(month)} ماه` };
-});
-
-const hardcodedMileage = [50000, 100000, 150000, 200000, 250000, 300000].map((km) => ({
-  value: km,
-  label: `${toPersianDigits(km.toLocaleString())} کیلومتر`,
-}));
+import { useNavigate } from "react-router-dom";
+import { hardcodedDurations, hardcodedMileage, hardcodedPrices, hardcodedYears } from "./constants";
 
 const mapItemsFromAPI = (items) => {
+  if (!Array.isArray(items)) {
+    return { value: items?.id, label: items?.title };
+  }
   return items?.map((item) => ({
     value: item.id,
     label: item.title,
@@ -49,25 +16,27 @@ const mapItemsFromAPI = (items) => {
 };
 
 const AlarmForm = ({ existingAlarmData }) => {
-  const [state, setState] = useState(existingAlarmData?.state || null);
-  const [city, setCity] = useState(existingAlarmData?.city || null);
-  const [make, setMake] = useState(existingAlarmData?.make || null);
-  const [model, setModel] = useState(existingAlarmData?.model || null);
-  const [minPrice, setMinPrice] = useState(existingAlarmData?.minPrice || null);
-  const [maxPrice, setMaxPrice] = useState(existingAlarmData?.maxPrice || null);
-  const [minYear, setMinYear] = useState(existingAlarmData?.minYear || null);
-  const [maxYear, setMaxYear] = useState(existingAlarmData?.maxYear || null);
-  const [minMileage, setMinMileage] = useState(existingAlarmData?.minMileage || null);
-  const [maxMileage, setMaxMileage] = useState(existingAlarmData?.maxMileage || null);
-  const [minInsuranceDuration, setMinInsuranceDuration] = useState(existingAlarmData?.minInsuranceDuration || null);
-  const [maxInsuranceDuration, setMaxInsuranceDuration] = useState(existingAlarmData?.maxInsuranceDuration || null);
+  const navigate = useNavigate();
 
-  const [color, setColor] = useState([]);
-  const [fuelType, setFuelType] = useState([]);
-  const [chassisState, setChassisState] = useState([]);
-  const [engineState, setEngineState] = useState([]);
-  const [bodyState, setBodyState] = useState([]);
-  const [gearbox, setGearbox] = useState([]);
+  const [state, setState] = useState(mapItemsFromAPI(existingAlarmData?.state) || null);
+  const [city, setCity] = useState(mapItemsFromAPI(existingAlarmData?.city) || null);
+  const [make, setMake] = useState(mapItemsFromAPI(existingAlarmData?.make) || null);
+  const [model, setModel] = useState(mapItemsFromAPI(existingAlarmData?.model) || null);
+  const [minPrice, setMinPrice] = useState(null);
+  const [maxPrice, setMaxPrice] = useState(null);
+  const [minYear, setMinYear] = useState(null);
+  const [maxYear, setMaxYear] = useState(null);
+  const [minMileage, setMinMileage] = useState(null);
+  const [maxMileage, setMaxMileage] = useState(null);
+  const [minInsuranceDuration, setMinInsuranceDuration] = useState(null);
+  const [maxInsuranceDuration, setMaxInsuranceDuration] = useState(null);
+
+  const [selectedColors, setSelectedColors] = useState([]);
+  const [selectedFuelTypes, setSelectedFuelTypes] = useState([]);
+  const [selectedChassisStates, setSelectedChassisStates] = useState([]);
+  const [selectedEngineStates, setSelectedEngineStates] = useState([]);
+  const [selectedBodyStates, setSelectedBodyStates] = useState([]);
+  const [selectedGearboxes, setSelectedGearboxes] = useState([]);
 
   const [filteredMaxPrices, setFilteredMaxPrices] = useState([]);
   const [filteredMaxYears, setFilteredMaxYears] = useState([]);
@@ -99,16 +68,51 @@ const AlarmForm = ({ existingAlarmData }) => {
       setBodyStates(mapItemsFromAPI(data.bodyStates));
       setGearboxes(mapItemsFromAPI(data.gearboxes));
     });
+    const min = Number(existingAlarmData?.minPrice);
+    const minItem = hardcodedPrices.find((item) => item.value === min);
+    setMinPrice(minItem);
+    const max = Number(existingAlarmData?.maxPrice);
+    const maxItem = hardcodedPrices.find((item) => item.value === max);
+    setMaxPrice(maxItem);
+    const minYear = Number(existingAlarmData?.minYear);
+    const minYearItem = hardcodedYears.find((item) => item.value === minYear);
+    setMinYear(minYearItem);
+    const maxYear = Number(existingAlarmData?.maxYear);
+    const maxYearItem = hardcodedYears.find((item) => item.value === maxYear);
+    setMaxYear(maxYearItem);
+    const minMileage = Number(existingAlarmData?.minMileage);
+    const minMileageItem = hardcodedMileage.find((item) => item.value === minMileage);
+    setMinMileage(minMileageItem);
+    const maxMileage = Number(existingAlarmData?.maxMileage);
+    const maxMileageItem = hardcodedMileage.find((item) => item.value === maxMileage);
+    setMaxMileage(maxMileageItem);
+    const minInsuranceDuration = Number(existingAlarmData?.minInsuranceDuration);
+    const minInsuranceDurationItem = hardcodedDurations.find((item) => item.value === minInsuranceDuration);
+    setMinInsuranceDuration(minInsuranceDurationItem);
+    const maxInsuranceDuration = Number(existingAlarmData?.maxInsuranceDuration);
+    const maxInsuranceDurationItem = hardcodedDurations.find((item) => item.value === maxInsuranceDuration);
+    setMaxInsuranceDuration(maxInsuranceDurationItem);
   }, []);
 
   useEffect(() => {
-    setCity(null);
-    setCities([]);
+    setSelectedColors(mapItemsFromAPI(existingAlarmData?.colors) || []);
+    setSelectedFuelTypes(mapItemsFromAPI(existingAlarmData?.fuelTypes) || []);
+    setSelectedChassisStates(mapItemsFromAPI(existingAlarmData?.chassisStates) || []);
+    setSelectedEngineStates(mapItemsFromAPI(existingAlarmData?.engineStates) || []);
+    setSelectedBodyStates(mapItemsFromAPI(existingAlarmData?.bodyStates) || []);
+    setSelectedGearboxes(mapItemsFromAPI(existingAlarmData?.gearboxes) || []);
+  }, [existingAlarmData]);
+
+  useEffect(() => {
+    if (!isEditMode) {
+      setCity(null);
+      setCities([]);
+    }
     if (!state?.value) return;
     getStateCities(state?.value).then((data) => {
       setCities(mapItemsFromAPI(data));
     });
-  }, [state?.value]);
+  }, [state?.value, isEditMode]);
 
   useEffect(() => {
     if (make?.value) {
@@ -164,21 +168,22 @@ const AlarmForm = ({ existingAlarmData }) => {
       maxMileage: maxMileage?.value || null,
       minInsuranceDuration: minInsuranceDuration?.value || null,
       maxInsuranceDuration: maxInsuranceDuration?.value || null,
-      colorIds: color.map((item) => item.value),
-      fuelTypeIds: fuelType.map((item) => item.value),
-      chassisStateIds: chassisState.map((item) => item.value),
-      engineStateIds: engineState.map((item) => item.value),
-      bodyStateIds: bodyState.map((item) => item.value),
-      gearboxIds: gearbox.map((item) => item.value),
+      colorIds: selectedColors.map((item) => item.value),
+      fuelTypeIds: selectedFuelTypes.map((item) => item.value),
+      chassisStateIds: selectedChassisStates.map((item) => item.value),
+      engineStateIds: selectedEngineStates.map((item) => item.value),
+      bodyStateIds: selectedBodyStates.map((item) => item.value),
+      gearboxIds: selectedGearboxes.map((item) => item.value),
     };
 
     if (isEditMode && existingAlarmData?.id) {
       // Call update API
+      console.log({ alarmPayload });
       updateAlarm(existingAlarmData.id, alarmPayload)
         .then((response) => {
           console.log("Alarm updated:", response);
           toast.success("هشدار با موفقیت ویرایش شد!");
-          // Optionally navigate back to the alarms list or show a success message
+          navigate("/alarms");
         })
         .catch((error) => {
           console.error("Error updating alarm:", error);
@@ -190,7 +195,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         .then((response) => {
           console.log("Alarm created:", response);
           toast.success("هشدار جدید با موفقیت ثبت شد!");
-          // Optionally reset form or navigate
+          navigate("/alarms");
         })
         .catch((error) => {
           console.error("Error creating alarm:", error);
@@ -286,14 +291,21 @@ const AlarmForm = ({ existingAlarmData }) => {
       />
 
       <label>رنگ بدنه</label>
-      <Select isMulti options={colors} value={color} onChange={setColor} placeholder="انتخاب رنگ" {...selectProps} />
+      <Select
+        isMulti
+        options={colors}
+        value={selectedColors}
+        onChange={setSelectedColors}
+        placeholder="انتخاب رنگ"
+        {...selectProps}
+      />
 
       <label>نوع سوخت</label>
       <Select
         isMulti
         options={fuelTypes}
-        value={fuelType}
-        onChange={setFuelType}
+        value={selectedFuelTypes}
+        onChange={setSelectedFuelTypes}
         placeholder="نوع سوخت"
         {...selectProps}
       />
@@ -302,8 +314,8 @@ const AlarmForm = ({ existingAlarmData }) => {
       <Select
         isMulti
         options={chassisStates}
-        value={chassisState}
-        onChange={setChassisState}
+        value={selectedChassisStates}
+        onChange={setSelectedChassisStates}
         placeholder="وضعیت شاسی"
         {...selectProps}
       />
@@ -312,8 +324,8 @@ const AlarmForm = ({ existingAlarmData }) => {
       <Select
         isMulti
         options={engineStates}
-        value={engineState}
-        onChange={setEngineState}
+        value={selectedEngineStates}
+        onChange={setSelectedEngineStates}
         placeholder="وضعیت موتور"
         {...selectProps}
       />
@@ -322,14 +334,21 @@ const AlarmForm = ({ existingAlarmData }) => {
       <Select
         isMulti
         options={bodyStates}
-        value={bodyState}
-        onChange={setBodyState}
+        value={selectedBodyStates}
+        onChange={setSelectedBodyStates}
         placeholder="وضعیت بدنه"
         {...selectProps}
       />
 
       <label>گیربکس</label>
-      <Select isMulti options={gearboxes} value={gearbox} onChange={setGearbox} placeholder="گیربکس" {...selectProps} />
+      <Select
+        isMulti
+        options={gearboxes}
+        value={selectedGearboxes}
+        onChange={setSelectedGearboxes}
+        placeholder="گیربکس"
+        {...selectProps}
+      />
 
       <label>حداقل مدت بیمه</label>
       <Select

@@ -75,11 +75,31 @@ export const createAlarm = async (alarmData) => {
 
 export const updateAlarm = async (alarmId, alarmData) => {
   try {
-    const response = await api.put("/preferences", alarmId, alarmData);
+    const response = await api.put(`/preferences/${alarmId}`, alarmData); 
     return response.data;
   } catch (error) {
     console.error("Error updating alarm:", error);
     throw new Error("Failed to update alarm");
+  }
+};
+
+export const deleteAlarm = async (alarmId) => {
+  try {
+    const response = await api.delete("/preferences/" + alarmId);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating alarm:", error);
+    throw new Error("Failed to update alarm");
+  }
+};
+
+export const getUserAlarms = async () => {
+  try {
+    const response = await api.get("/preferences");
+    return response.data;
+  } catch (error) {
+    console.error("Error getting alarm:", error);
+    throw new Error("Failed to get alarm");
   }
 };
 

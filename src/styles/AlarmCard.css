@@ -1,115 +1,202 @@
 /* src/components/AlarmCard.css */
 .alarm-card {
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    margin-bottom: 1.5rem;
-    padding: 1.5rem;
-    direction: rtl;
-    font-family: "Vazir", sans-serif;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    display: flex;
-    flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  direction: rtl;
+  /* Ensures RTL layout for the card content */
+  font-family: "Vazir", sans-serif;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* Needed for absolute positioning of actions if chosen */
 }
 
 .alarm-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .alarm-card-header {
-    border-bottom: 1px solid #e9ecef;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
+  display: flex;
+  /* justify-content: space-between;  We'll manage spacing differently now */
+  flex-direction: row-reverse;
+  /* Title on right, actions on left in RTL */
+  align-items: center;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+  position: relative;
+  /* Context for absolute positioning of actions */
 }
 
 .alarm-card-header h3 {
-    margin: 0;
-    font-size: 1.3rem;
-    color: #0056d2;
-    /* Using a theme color */
-    font-weight: 600;
+  margin: 0;
+  font-size: 1.3rem;
+  color: #0056d2;
+  font-weight: 600;
+  flex-grow: 1;
+  /* Allows title to take available space */
+  text-align: right;
+  /* Explicitly align title text to the right */
+}
+
+/* Container for action icons */
+.alarm-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  /* Space between icons */
+  /* Positioned to the visual top-right (left in RTL flow) */
+  margin-left: 1rem;
+  /* Space between icons and title in RTL */
+  /* Alternative: Absolute positioning
+  position: absolute;
+  top: -0.25rem; 
+  left: -0.25rem; 
+  */
+}
+
+.action-icon-button {
+  background-color: #f0f4f8;
+  /* Default light background */
+  border: 1px solid #dfe6ed;
+  color: #4a5568;
+  /* Default icon color (greyish) */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  /* Controls the size of the react-icon */
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  padding: 0;
+}
+
+.action-icon-button:hover {
+  background-color: #e2e8f0;
+  /* Slightly darker on hover */
+  color: #2d3748;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific styles for each button type */
+
+.action-icon-button.expand-button {
+  color: #007bff;
+  /* Blue for expand/collapse icon */
+  background-color: #e6f2ff;
+  /* Light blue background */
+  border-color: #cce0ff;
+}
+
+.action-icon-button.expand-button:hover {
+  background-color: #cce0ff;
+  color: #0056b3;
+}
+
+.action-icon-button.edit-button {
+  color: #28a745;
+  /* Green for edit icon */
+  background-color: #eaf6ec;
+  /* Light green background */
+  border-color: #b8e0be;
+}
+
+.action-icon-button.edit-button:hover {
+  background-color: #c3e6cb;
+  /* Darker green background on hover */
+  color: #1e7e34;
+  /* Darker green icon on hover */
+}
+
+.action-icon-button.delete-button {
+  color: #dc3545;
+  /* Red for delete icon */
+  background-color: #fdecea;
+  /* Light red background */
+  border-color: #f5c6cb;
+}
+
+.action-icon-button.delete-button:hover {
+  background-color: #f8d7da;
+  /* Darker red background on hover */
+  color: #c82333;
+  /* Darker red icon on hover */
 }
 
 .alarm-card-body {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .alarm-detail-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.8rem;
-    font-size: 0.95rem;
-    color: #343a40;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  color: #343a40;
 }
 
 .alarm-detail-item strong {
-    color: #0a2540;
-    min-width: 70px;
-    /* For alignment */
-    display: inline-block;
+  color: #0a2540;
+  min-width: 70px;
+  display: inline-block;
 }
 
 .alarm-detail-icon {
-    color: #007bff;
-    font-size: 1.1rem;
+  color: #007bff;
+  font-size: 1.1rem;
+  min-width: 20px;
+  text-align: center;
 }
 
-.alarm-card-footer {
-    padding-top: 1rem;
-    margin-top: 1rem;
-    border-top: 1px solid #e9ecef;
-    display: flex;
-    justify-content: flex-end;
-    /* Aligns button to the left in RTL */
+.alarm-card-expanded-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out, margin-top 0.4s ease-in-out;
+  margin-top: 0;
 }
 
-.alarm-card-edit-button {
-    background-image: linear-gradient(to right, #28a745, #218838);
-    /* Green gradient for edit */
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    font-family: "Vazir", sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-image 0.3s ease, transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+.alarm-card-expanded-details.open {
+  max-height: 500px;
+  margin-top: 0.1rem;
 }
 
-.alarm-card-edit-button:hover {
-    background-image: linear-gradient(to right, #218838, #1e7e34);
-    transform: translateY(-2px);
-}
+/* Footer is removed, so no .alarm-card-footer or .alarm-card-edit-button styles needed here anymore */
 
-/* Responsive adjustments for smaller screens */
 @media (max-width: 480px) {
-    .alarm-card {
-        padding: 1rem;
-    }
+  .alarm-card {
+    padding: 1rem;
+  }
 
-    .alarm-card-header h3 {
-        font-size: 1.15rem;
-    }
+  .alarm-card-header h3 {
+    font-size: 1.15rem;
+  }
 
-    .alarm-detail-item {
-        font-size: 0.85rem;
-        gap: 0.5rem;
-    }
+  .alarm-card-actions {
+    /* If icons take too much space, adjust gap or icon size */
+    /* gap: 0.3rem; */
+    /* margin-left: 0.5rem; */
+  }
 
-    .alarm-detail-item strong {
-        min-width: 60px;
-    }
+  .action-icon-button {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
 
-    .alarm-card-edit-button {
-        width: 100%;
-        justify-content: center;
-        padding: 0.7rem;
-    }
+  .alarm-detail-item {
+    font-size: 0.85rem;
+    gap: 0.5rem;
+  }
+
+  .alarm-detail-item strong {
+    min-width: 60px;
+  }
 }
