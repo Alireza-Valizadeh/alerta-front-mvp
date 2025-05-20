@@ -321,7 +321,7 @@ footer {
     background-color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     direction: rtl;
-    margin: 0 auto;
+    /* margin: 0 auto; */
 }
 
 .alarm-form label {

@@ -9,6 +9,7 @@ import PrivateRoute from './Components/PrivateRoute';
 import { Toaster } from 'react-hot-toast';
 import ProfilePage from './pages/ProfilePage';
 import LandingPage from './pages/LandingPage';
+import ViewAlarmsPage from './pages/ViewAlarmsPage';
 
 const App = () => {
   return (
@@ -28,7 +29,8 @@ const App = () => {
           element={
             <PrivateRoute>
               <Routes>
-                <Route path="/alarms" element={<AlarmPage />} />
+                <Route path="/alarms" element={<ViewAlarmsPage />} />
+                <Route path="/alarms/edit" element={<AlarmPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
               </Routes>
             </PrivateRoute>

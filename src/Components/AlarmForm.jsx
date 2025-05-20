@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { createAlarm, getAlarmCreationData, getMakeModels, getStateCities } from "../services/api";
+import { createAlarm, getAlarmCreationData, getMakeModels, getStateCities, updateAlarm } from "../services/api";
 import toast from "react-hot-toast";
 
 const toPersianDigits = (str) => str.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
@@ -48,19 +48,20 @@ const mapItemsFromAPI = (items) => {
   }));
 };
 
-const AlarmForm = () => {
-  const [state, setState] = useState(null);
-  const [city, setCity] = useState(null);
-  const [make, setMake] = useState(null);
-  const [model, setModel] = useState(null);
-  const [minPrice, setMinPrice] = useState(null);
-  const [maxPrice, setMaxPrice] = useState(null);
-  const [minYear, setMinYear] = useState(null);
-  const [maxYear, setMaxYear] = useState(null);
-  const [minMileage, setMinMileage] = useState(null);
-  const [maxMileage, setMaxMileage] = useState(null);
-  const [minInsuranceDuration, setMinInsuranceDuration] = useState(null);
-  const [maxInsuranceDuration, setMaxInsuranceDuration] = useState(null);
+const AlarmForm = ({ existingAlarmData }) => {
+  const [state, setState] = useState(existingAlarmData?.state || null);
+  const [city, setCity] = useState(existingAlarmData?.city || null);
+  const [make, setMake] = useState(existingAlarmData?.make || null);
+  const [model, setModel] = useState(existingAlarmData?.model || null);
+  const [minPrice, setMinPrice] = useState(existingAlarmData?.minPrice || null);
+  const [maxPrice, setMaxPrice] = useState(existingAlarmData?.maxPrice || null);
+  const [minYear, setMinYear] = useState(existingAlarmData?.minYear || null);
+  const [maxYear, setMaxYear] = useState(existingAlarmData?.maxYear || null);
+  const [minMileage, setMinMileage] = useState(existingAlarmData?.minMileage || null);
+  const [maxMileage, setMaxMileage] = useState(existingAlarmData?.maxMileage || null);
+  const [minInsuranceDuration, setMinInsuranceDuration] = useState(existingAlarmData?.minInsuranceDuration || null);
+  const [maxInsuranceDuration, setMaxInsuranceDuration] = useState(existingAlarmData?.maxInsuranceDuration || null);
+
   const [color, setColor] = useState([]);
   const [fuelType, setFuelType] = useState([]);
   const [chassisState, setChassisState] = useState([]);
@@ -85,6 +86,8 @@ const AlarmForm = () => {
   const [bodyStates, setBodyStates] = useState([]);
   const [gearboxes, setGearboxes] = useState([]);
 
+  const isEditMode = !!existingAlarmData;
+
   useEffect(() => {
     getAlarmCreationData().then((data) => {
       setStates(mapItemsFromAPI(data.states));
@@ -108,13 +111,18 @@ const AlarmForm = () => {
   }, [state?.value]);
 
   useEffect(() => {
-    setModel(null);
-    setModels([]);
-    if (!make?.value) return;
-    getMakeModels(make?.value).then((data) => {
-      setModels(mapItemsFromAPI(data));
-    });
-  }, [make?.value]);
+    if (make?.value) {
+      getMakeModels(make.value).then((data) => {
+        setModels(mapItemsFromAPI(data));
+        if (existingAlarmData?.model && !data.find((m) => m.id === existingAlarmData.model.value)) {
+          // setModel(null);
+        }
+      });
+    } else {
+      setModels([]);
+      if (!isEditMode) setModel(null);
+    }
+  }, [make, isEditMode, existingAlarmData?.model]);
 
   useEffect(() => {
     const min = minPrice?.value || 0;
@@ -143,7 +151,7 @@ const AlarmForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = {
+    const alarmPayload = {
       stateId: state?.value,
       cityId: city?.value,
       makeId: make?.value,
@@ -156,7 +164,6 @@ const AlarmForm = () => {
       maxMileage: maxMileage?.value || null,
       minInsuranceDuration: minInsuranceDuration?.value || null,
       maxInsuranceDuration: maxInsuranceDuration?.value || null,
-
       colorIds: color.map((item) => item.value),
       fuelTypeIds: fuelType.map((item) => item.value),
       chassisStateIds: chassisState.map((item) => item.value),
@@ -165,18 +172,32 @@ const AlarmForm = () => {
       gearboxIds: gearbox.map((item) => item.value),
     };
 
-    console.log("Alarm data:", data);
-    createAlarm(data)
-      .then((response) => {
-        console.log(response);
-        toast.success("هشدار ثبت شد!");
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error(error?.response?.data?.message || "هشدار ثبت نشد!");
-      });
+    if (isEditMode && existingAlarmData?.id) {
+      // Call update API
+      updateAlarm(existingAlarmData.id, alarmPayload)
+        .then((response) => {
+          console.log("Alarm updated:", response);
+          toast.success("هشدار با موفقیت ویرایش شد!");
+          // Optionally navigate back to the alarms list or show a success message
+        })
+        .catch((error) => {
+          console.error("Error updating alarm:", error);
+          toast.error(error?.response?.data?.message || "خطا در ویرایش هشدار!");
+        });
+    } else {
+      // Call create API
+      createAlarm(alarmPayload)
+        .then((response) => {
+          console.log("Alarm created:", response);
+          toast.success("هشدار جدید با موفقیت ثبت شد!");
+          // Optionally reset form or navigate
+        })
+        .catch((error) => {
+          console.error("Error creating alarm:", error);
+          toast.error(error?.response?.data?.message || "خطا در ثبت هشدار!");
+        });
+    }
   };
-
   const selectProps = {
     isClearable: true,
     noOptionsMessage: () => "موردی یافت نشد",
@@ -329,7 +350,7 @@ const AlarmForm = () => {
       />
 
       <button type="submit" className="alarm-button">
-        ثبت هشدار
+        {existingAlarmData ? "ویرایش" : "ثبت"}
       </button>
     </form>
   );

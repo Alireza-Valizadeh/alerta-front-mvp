@@ -73,6 +73,16 @@ export const createAlarm = async (alarmData) => {
   }
 };
 
+export const updateAlarm = async (alarmId, alarmData) => {
+  try {
+    const response = await api.put("/preferences", alarmId, alarmData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating alarm:", error);
+    throw new Error("Failed to update alarm");
+  }
+};
+
 export const updateUserProfile = async (userId, data) => {
   const response = await api.put(`/users/${userId}`, data);
   return response.data;
