@@ -8,10 +8,10 @@ const FooterV2 = () => {
   return (
     <footer className="page-footer">
       <div className="footer-content">
-        <span className="footer-brand">{startupFullName}</span>
         <span className="footer-copy">
           © {currentYear} {startupName}. تمام حقوق محفوظ است.
         </span>
+        <span className="footer-brand">{startupFullName}</span>
         <a
           referrerPolicy="origin"
           target="_blank"

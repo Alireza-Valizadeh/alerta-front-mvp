@@ -186,7 +186,9 @@ form {
 }
 
 .page-footer {
-    height: 75px;
+    max-height: 135px;
+    min-height: 75px;
+    height: fit-content;
     background-color: #e6f0ff;
     border-top: 1px solid #d0d7e5;
     color: #0a2540;
@@ -208,6 +210,7 @@ form {
 .footer-content {
     display: flex;
     justify-content: space-between;
+    flex-direction: row-reverse;
     align-items: center;
     width: 100%;
     max-width: 1200px;
@@ -216,6 +219,7 @@ form {
     gap: 0.5rem;
     word-break: break-word;
     overflow-wrap: break-word;
+    margin-top: 40px;
 }
 
 .page-footer {
@@ -247,12 +251,13 @@ form {
 
     .page-footer {
         font-size: 0.65rem;
-        height: 70px;
+        max-height: 180px;
+        min-height: 75px;
+        overflow: hidden;
+        height: fit-content;
         position: relative;
         bottom: 0;
     }
-
-
 }
 
 .login-bg-wrapper {
