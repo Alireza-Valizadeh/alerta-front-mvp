@@ -198,13 +198,12 @@ form {
     align-items: center;
     justify-content: center;
     padding: 0 1rem;
-    position: sticky;
+    /* position: sticky; */
     bottom: 0;
     width: 100%;
     z-index: 999;
     box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.05);
-    overflow-x: hidden;
-    /* added for extra safety */
+    overflow: hidden;
 }
 
 .footer-content {
