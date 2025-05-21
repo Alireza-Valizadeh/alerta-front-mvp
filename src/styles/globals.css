@@ -219,7 +219,7 @@ form {
     gap: 0.5rem;
     word-break: break-word;
     overflow-wrap: break-word;
-    margin-top: 40px;
+    overflow: hidden;
 }
 
 .page-footer {
@@ -257,6 +257,10 @@ form {
         height: fit-content;
         position: relative;
         bottom: 0;
+    }
+
+    .footer-content {
+        margin-top: 12px;
     }
 }
 
