@@ -1,42 +1,48 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { verifyOTP } from "../services/api";
 import toast from "react-hot-toast";
 
 const OTPInput = ({ phone }) => {
-  const [code, setCode] = useState();
-  const navigate = useNavigate();
+  const [code, setCode] = useState("");
 
   const handleSubmit = () => {
     verifyOTP(phone, code)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         toast.success("با موفقیت وارد شدید!");
-        navigate("/app/profile");
+        // navigation handled in parent
       })
       .catch((error) => {
         const message = error?.response?.data?.message;
-        console.log({ message });
         toast.error(message || "مشکلی پیش آمده است!");
       });
   };
 
   return (
-    <div className="form-box">
-      <p className="otp-text">
-        کد تایید به شماره <strong>{phone}</strong> ارسال شد.
-      </p>
-      {/* <label>کد تایید</label> */}
-      <input
-        type="number"
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        placeholder="مثلاً 1234"
-        max="9999"
-        min="1111"
-      />
-      <button className="submit-button" onClick={handleSubmit}>ورود</button>
-    </div>
+    <>
+      {/* <img src={process.env.PUBLIC_URL + "/alerta.jpg"} alt="Alerta Logo" className="login-modern-logo" /> */}
+      {/* <h1 className="login-modern-title">ورود به آلرتا</h1> */}
+      <div className="login-modern-form">
+        <label className="login-modern-label" htmlFor="otp-code">
+          کد تایید ارسال شده به {phone} را وارد کنید:
+        </label>
+        <div className="login-modern-input-wrapper">
+          <input
+            id="otp-code"
+            type="number"
+            className="login-modern-input"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            placeholder="مثلاً 1234"
+            max="9999"
+            min="1111"
+            dir="ltr"
+          />
+        </div>
+        <button className="login-modern-btn" onClick={handleSubmit}>
+          ورود
+        </button>
+      </div>
+    </>
   );
 };
 

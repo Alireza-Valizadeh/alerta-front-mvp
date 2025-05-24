@@ -1,0 +1,150 @@
+/* Modern Login Page Styles */
+.login-modern-bg {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  direction: rtl;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-modern-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('../assets/carSketch.png') center center / cover no-repeat;
+  filter: blur(10px) brightness(0.92);
+  opacity: 0.55;
+  z-index: 0;
+}
+
+.login-modern-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.login-modern-card {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 123, 255, 0.10), 0 2px 8px rgba(0, 86, 210, 0.08);
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 370px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 8vh 0 2vh 0;
+  z-index: 2;
+}
+
+.login-modern-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  object-fit: cover;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.10);
+}
+
+.login-modern-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0056d2;
+  margin-bottom: 2.2rem;
+  text-align: center;
+}
+
+.login-modern-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 0 0.5rem;
+}
+
+.login-modern-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 0.5rem;
+}
+
+.login-modern-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.login-modern-input-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #007bff;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.login-modern-input {
+  width: 100%;
+  padding: 0.85rem 1rem 0.85rem 2.5rem;
+  border-radius: 10px;
+  border: 1.5px solid #d0d7e5;
+  font-size: 1.08rem;
+  font-family: inherit;
+  background: #f7fafd;
+  color: #222;
+  transition: border-color 0.2s;
+  outline: none;
+  direction: ltr;
+}
+.login-modern-input:focus {
+  border-color: #007bff;
+  background: #fff;
+}
+
+.login-modern-input::placeholder {
+  color: #444;
+  opacity: 1;
+}
+
+.login-modern-btn {
+  width: 100%;
+  padding: 1rem 0;
+  background: linear-gradient(90deg, #007bff 60%, #0056d2 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.login-modern-btn:active {
+  background: linear-gradient(90deg, #0056d2 60%, #007bff 100%);
+  box-shadow: 0 4px 16px rgba(0,123,255,0.16);
+}
+
+@media (max-width: 480px) {
+  .login-modern-bg {
+    align-items: flex-start;
+    padding: 0 0.5rem;
+  }
+  .login-modern-card {
+    padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+    max-width: 98vw;
+    margin: 4vh 0 1vh 0;
+  }
+  .login-modern-title {
+    font-size: 1.15rem;
+  }
+  .login-modern-form {
+    padding: 0 0.2rem;
+  }
+} 

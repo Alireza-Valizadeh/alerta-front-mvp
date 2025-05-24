@@ -9,6 +9,7 @@ const PhoneInput = ({ phone, setPhone, onSubmit }) => {
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
         placeholder="مثلاً 09123456789"
+        className="login-modern-input"
       />
       <button className="submit-button" onClick={onSubmit}>ارسال کد تایید</button>
     </div>
