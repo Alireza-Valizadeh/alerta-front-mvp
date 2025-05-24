@@ -13,7 +13,7 @@
 body {
     font-family: 'Vazir', sans-serif;
     background-color: #e6f0ff;
-    color: #0a2540;
+    color: #444;
     direction: rtl;
     line-height: 1.6;
     height: 100%;
@@ -24,6 +24,10 @@ body {
 html,
 #root {
     height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    box-sizing: border-box;
     overflow-x: hidden;
     scroll-behavior: smooth;
     scroll-padding-top: 70px;
@@ -36,7 +40,7 @@ h3,
 h4,
 h5,
 h6 {
-    color: #0a2540;
+    color: #222;
     margin-bottom: 1.5rem;
 }
 
@@ -49,7 +53,7 @@ label {
     font-weight: 600;
     font-size: 0.95rem;
     margin-bottom: 0.5rem;
-    color: #0a2540;
+    color: #555;
     display: inline-block;
 }
 
@@ -78,18 +82,21 @@ input:focus {
 }
 
 /* Button */
+button, .submit-button, .alarm-button, .bottom-nav-plus-btn {
+    box-shadow: none !important;
+}
+
 button {
     display: block;
     width: 100%;
     padding: 0.85rem;
-    color: #fff;
+    color: #555;
     border: none;
     border-radius: 10px;
     font-size: 1.05rem;
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.3s;
-    box-shadow: 0 2px 0px rgba(0, 123, 255, 0.3);
 }
 
 .submit-button {
@@ -156,12 +163,10 @@ form {
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
 }
 
-
-
 .otp-text {
     margin-bottom: 1rem;
     font-size: 0.95rem;
-    color: #0a2540;
+    color: #444;
     line-height: 1.5;
 }
 
@@ -173,16 +178,35 @@ form {
     padding: 1rem;
 }
 
-
 .page-wrapper {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-
+    padding: 0;
+    margin: 0;
+    background: transparent;
 }
 
 .page-content {
+    margin-top: 0;
+    margin-bottom: 90px;
     flex: 1;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    margin: 32px auto 90px auto;
+    max-width: 700px;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    box-sizing: border-box;
+}
+
+/* Remove any top/bottom margin from first/last child in .page-content */
+.page-content > *:first-child {
+    margin-top: 0 !important;
+}
+.page-content > *:last-child {
+    margin-bottom: 0 !important;
 }
 
 .page-footer {
@@ -191,7 +215,7 @@ form {
     height: fit-content;
     background-color: #e6f0ff;
     border-top: 1px solid #d0d7e5;
-    color: #0a2540;
+    color: #444;
     font-size: 0.95rem;
     direction: rtl;
     display: flex;
@@ -235,7 +259,6 @@ form {
     color: #444;
 }
 
-
 /* Add safe spacing on smaller screens */
 @media (max-width: 480px) {
     .login-container {
@@ -269,7 +292,6 @@ form {
     overflow: hidden;
 }
 
-
 /* Make sure content layers above */
 .login-container,
 .page-content,
@@ -279,25 +301,7 @@ header {
     z-index: 1;
 }
 
-
 .login-background {
-    position: relative;
-    z-index: 1;
-}
-
-.login-background-wrapper {
-    position: relative;
-    min-height: 100vh;
-    z-index: 0;
-    overflow: hidden;
-}
-
-
-.page-wrapper,
-.login-container,
-.page-content,
-header,
-footer {
     position: relative;
     z-index: 1;
 }
@@ -336,7 +340,7 @@ footer {
     display: block;
     margin-bottom: 0.4rem;
     font-weight: bold;
-    color: #0a2540;
+    color: #444;
 }
 
 .alarm-form>*:not(:last-child) {
@@ -361,7 +365,6 @@ footer {
 .profile-container {
     display: flex;
     justify-content: center;
-    padding: 2rem;
     direction: rtl;
     font-family: "Vazir", sans-serif;
 }
@@ -390,7 +393,7 @@ footer {
 .profile-name {
     margin: 0;
     font-size: 1.5rem;
-    color: #0a2540;
+    color: #444;
 }
 
 .profile-status {
@@ -450,4 +453,191 @@ footer {
 .profile-actions {
     margin-top: 1.5rem;
     text-align: left;
+}
+
+/* --- AppBar Styles --- */
+.appbar-header {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-bottom: 1.5px solid #e0e0e0;
+    height: 72px;
+    padding: 0 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    direction: rtl;
+    box-shadow: none;
+    position: relative;
+}
+.appbar-title {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #444;
+    letter-spacing: 0.5px;
+    pointer-events: none;
+    z-index: 0;
+}
+.appbar-left, .appbar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1;
+}
+.appbar-icon-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    padding: 0.3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.appbar-icon-btn:hover {
+    background: #e6f0ff;
+}
+
+/* --- BottomNav Styles --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #f7fafd;
+    border-top: 1px solid #e9eef5;
+    z-index: 200;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.03);
+    direction: rtl;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bottom-nav-list {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    list-style: none;
+    position: relative;
+}
+.bottom-nav-list > li {
+    order: 0;
+}
+.bottom-nav-list > li.bottom-nav-plus {
+    order: 2;
+}
+.bottom-nav-list > li:nth-child(1) { order: 0; }
+.bottom-nav-list > li:nth-child(2) { order: 1; }
+.bottom-nav-list > li:nth-child(4) { order: 3; }
+.bottom-nav-list > li:nth-child(5) { order: 4; }
+.bottom-nav-btn {
+    background: none;
+    border: none;
+    color: #555;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.08rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.5rem 0.7rem 0.4rem 0.7rem;
+    min-width: 56px;
+    min-height: 48px;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: none !important;
+}
+.bottom-nav-btn svg {
+    font-size: 1.35em;
+}
+.bottom-nav-btn span {
+    font-size: 0.85rem;
+    margin-top: 2px;
+    color: #888;
+}
+.bottom-nav-list .active .bottom-nav-btn,
+.bottom-nav-btn:active,
+.bottom-nav-btn:focus {
+    color: #0056d2;
+    background: #e6f0ff;
+}
+.bottom-nav-plus {
+    position: relative;
+    top: -22px;
+    z-index: 2;
+    flex: 0 0 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bottom-nav-plus-btn {
+    background: linear-gradient(90deg, #007bff 60%, #0056d2 100%);
+    color: #fff;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s, background 0.2s, border-color 0.2s;
+    outline: none;
+    box-shadow: 0 12px 36px 0 rgba(0,123,255,0.32), 0 4px 16px 0 rgba(0,86,210,0.18);
+    z-index: 10;
+    border-color: #007bff;
+}
+
+@media (max-width: 600px) {
+    .bottom-nav-list {
+        padding: 0 0.5rem;
+        max-width: 100vw;
+    }
+    .appbar-title {
+        font-size: 1.15rem;
+    }
+    .page-content {
+        margin: 20px auto 90px auto;
+        padding: 1.2rem 0.7rem;
+    }
+}
+
+.bottom-nav-list {
+    flex-direction: row-reverse;
+}
+
+/* Remove custom top padding/margin from .login-container, .alarm-container, .form-box, etc. */
+.login-container,
+.alarm-container,
+.form-box,
+.profile-container,
+.alarm-form,
+.profile-card {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Remove top margin from h1 in main content for consistency */
+.page-content h1:first-child {
+    margin-top: 0;
 }

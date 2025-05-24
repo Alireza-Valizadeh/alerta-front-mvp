@@ -1,13 +1,12 @@
 // src/pages/ViewAlarmsPage.js
 import React, { useState, useEffect, useCallback } from "react";
-import Navbar from "../Components/Navbar";
-import Footer from "../Components/Footer";
 import "../styles/ViewAlarmsPage.css";
-import { FiPlusCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import AlarmCard from "../Components/AlarmCard";
 import { deleteAlarm, getUserAlarms } from "../services/api";
 import toast from "react-hot-toast";
+import AppBar from "../Components/AppBar";
+import BottomNav from "../Components/BottomNav";
 
 const ViewAlarmsPage = () => {
   const [alarms, setAlarms] = useState([]);
@@ -53,19 +52,19 @@ const ViewAlarmsPage = () => {
   };
 
   const handleCreateNewAlarm = () => {
-    navigate("/alarms/edit");
+    navigate("/app/alarms/edit");
   };
 
   return (
     <div className="page-wrapper">
-      <Navbar />
+      <AppBar />
       <main className="page-content view-alarms-page-content">
-        <div className="view-alarms-header">
+        {/* <div className="view-alarms-header">
           <h1>هشدارهای من</h1>
           <button onClick={handleCreateNewAlarm} className="create-alarm-button">
             <FiPlusCircle /> ثبت هشدار جدید
           </button>
-        </div>
+        </div> */}
 
         {loading ? (
           <p style={{ textAlign: "center", fontSize: "1.2rem", marginTop: "2rem" }}>در حال بارگذاری لیست هشدارها...</p>
@@ -84,7 +83,7 @@ const ViewAlarmsPage = () => {
           </div>
         )}
       </main>
-      <Footer />
+      <BottomNav />
     </div>
   );
 };

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 import { sendOTP } from "../services/api";
 import toast from "react-hot-toast";
-import Navbar from "../Components/Navbar";
-import FooterV2 from "../Components/FooterV2";
 import PhoneInput from "../Components/PhoneInput";
 import OTPInput from "../Components/OTPInput";
 
@@ -33,7 +31,6 @@ const LoginPage = () => {
     // login-background-wrapper is likely for specific background styling of the login page
     <div className="login-background-wrapper">
       <div className="page-wrapper">
-        <Navbar />
         <main className="page-content login-container">
           {step === "phone" ? (
             <PhoneInput phone={phone} setPhone={setPhone} onSubmit={handlePhoneSubmit} />
@@ -41,7 +38,6 @@ const LoginPage = () => {
             <OTPInput phone={phone} />
           )}
         </main>
-        <FooterV2 />
       </div>
     </div>
   );

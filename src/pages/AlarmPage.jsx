@@ -1,8 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom"; // Import useLocation
-import Navbar from "../Components/Navbar";
 import AlarmForm from "../Components/AlarmForm";
-import FooterV2 from "../Components/FooterV2";
+import AppBar from "../Components/AppBar";
+import BottomNav from "../Components/BottomNav";
 
 const AlarmPage = () => {
   const location = useLocation(); // Get location object
@@ -10,12 +10,12 @@ const AlarmPage = () => {
 
   return (
     <div className="page-wrapper">
-      <Navbar />
+      <AppBar />
       <main style={mainContentStyle} className="page-content">
         <h1 style={headingStyle}>{alarmToEdit ? "ویرایش هشدار" : "تنظیم هشدار خودرو"}</h1>
         <AlarmForm existingAlarmData={alarmToEdit} />
       </main>
-      <FooterV2 />
+      <BottomNav />
     </div>
   );
 };

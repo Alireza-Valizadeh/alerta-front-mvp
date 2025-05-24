@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Profile from "../Components/Profile";
 import { getUsersProfile } from "../services/api";
-import Header from "../Components/Header";
-import Footer from "../Components/Footer"; 
-import Navbar from "../Components/Navbar";
-import FooterV2 from "../Components/FooterV2";
+import AppBar from "../Components/AppBar";
+import BottomNav from "../Components/BottomNav";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -38,18 +36,18 @@ const ProfilePage = () => {
   if (loading) {
     return (
       <div className="page-wrapper">
-        <Navbar />
+        <AppBar />
         <main className="page-content" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <p style={{ textAlign: "center" }}>در حال بارگذاری...</p>
         </main>
-        <FooterV2 /> 
+        <BottomNav />
       </div>
     );
   }
 
   return (
     <div className="page-wrapper">
-      <Navbar />
+      <AppBar />
       <main className="page-content">
         {" "}
         {/* Changed div to main for semantics */}
@@ -57,7 +55,7 @@ const ProfilePage = () => {
         {/* <h1 style={{ textAlign: "center" }}>پروفایل کاربری</h1> */}
         <Profile user={user} />
       </main>
-      <FooterV2 />
+      <BottomNav />
     </div>
   );
 };

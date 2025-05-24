@@ -41,7 +41,7 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const handleEdit = (e) => {
     e.stopPropagation();
-    navigate("/alarms/edit", { state: { alarmToEdit: alarm } });
+    navigate("/app/alarms/edit", { state: { alarmToEdit: alarm } });
   };
 
   // A simple generated name if one isn't provided

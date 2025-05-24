@@ -1,6 +1,6 @@
 /* src/pages/ViewAlarmsPage.css */
 .view-alarms-page-content {
-    padding: 1.5rem;
+    padding: 0 1.5rem 1.5rem 1.5rem;
     max-width: 900px;
     /* Max width for content area */
     margin: 0 auto;

@@ -12,7 +12,7 @@ const OTPInput = ({ phone }) => {
       .then((response) => {
         console.log(response);
         toast.success("با موفقیت وارد شدید!");
-        navigate("/profile");
+        navigate("/app/profile");
       })
       .catch((error) => {
         const message = error?.response?.data?.message;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { createAlarm, getAlarmCreationData, getMakeModels, getStateCities, updateAlarm } from "../services/api";
 import toast from "react-hot-toast";
@@ -183,7 +183,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         .then((response) => {
           console.log("Alarm updated:", response);
           toast.success("هشدار با موفقیت ویرایش شد!");
-          navigate("/alarms");
+          navigate("/app/alarms");
         })
         .catch((error) => {
           console.error("Error updating alarm:", error);
@@ -195,7 +195,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         .then((response) => {
           console.log("Alarm created:", response);
           toast.success("هشدار جدید با موفقیت ثبت شد!");
-          navigate("/alarms");
+          navigate("/app/alarms");
         })
         .catch((error) => {
           console.error("Error creating alarm:", error);

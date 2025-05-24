@@ -60,7 +60,7 @@ const Navbar = () => {
 
               <div className="navbar-mobile-right-spacer">
                 <button>
-                  <Link to="/login">ورود</Link>
+                  <Link to="/app/login">ورود</Link>
                 </button>
               </div>
             </>
@@ -79,10 +79,10 @@ const Navbar = () => {
                   </li>
                   {/* Add other desktop nav items or login/register if not in mobile menu */}
                   <li>
-                    <Link to="/login">ورود</Link>
+                    <Link to="/app/login">ورود</Link>
                   </li>
                   <li>
-                    <Link to="/login" className="navbar-cta">
+                    <Link to="/app/login" className="navbar-cta">
                       ثبت نام
                     </Link>
                   </li>

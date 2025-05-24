@@ -10,6 +10,8 @@ import { Toaster } from 'react-hot-toast';
 import ProfilePage from './pages/ProfilePage';
 import LandingPage from './pages/LandingPage';
 import ViewAlarmsPage from './pages/ViewAlarmsPage';
+import SettingsPage from './pages/SettingsPage';
+import CreditsPage from './pages/CreditsPage';
 
 const App = () => {
   return (
@@ -22,20 +24,19 @@ const App = () => {
       />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/otp" element={<LoginPage />} />
-        <Route
-          path="/*"
-          element={
-            <PrivateRoute>
-              <Routes>
-                <Route path="/alarms" element={<ViewAlarmsPage />} />
-                <Route path="/alarms/edit" element={<AlarmPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-              </Routes>
-            </PrivateRoute>
-          }
-        />
+        <Route path="/app/login" element={<LoginPage />} />
+        <Route path="/app/otp" element={<LoginPage />} />
+        <Route path="/app/*" element={
+          <PrivateRoute>
+            <Routes>
+              <Route path="alarms" element={<ViewAlarmsPage />} />
+              <Route path="alarms/edit" element={<AlarmPage />} />
+              <Route path="profile" element={<ProfilePage />} />
+              <Route path="settings" element={<SettingsPage />} />
+              <Route path="credits" element={<CreditsPage />} />
+            </Routes>
+          </PrivateRoute>
+        } />
       </Routes>
     </Router>
   );

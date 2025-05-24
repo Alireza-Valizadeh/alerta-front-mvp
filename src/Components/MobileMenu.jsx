@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/mobileMenu.css";
-import { FiX, FiUser, FiBell, FiCreditCard, FiLogOut, FiHome, FiList, FiSettings, FiHelpCircle } from "react-icons/fi";
+import { FiX, FiUser, FiBell, FiCreditCard, FiLogOut, FiHome, FiList, FiHelpCircle } from "react-icons/fi";
 import Cookies from "js-cookie";
 // import ProfilePlaceholder from '../assets/profile-placeholder.png'; // Optional: if you have a placeholder image
 
@@ -51,9 +51,9 @@ const MobileMenu = ({ isOpen, onClose }) => {
   // Menu items - adjust routes and text as needed
   const menuItems = [
     { text: "صفحه اصلی", icon: <FiHome />, href: "/", type: "link" },
-    { text: "پروفایل", icon: <FiUser />, href: "/profile", type: "link" },
-    { text: "هشدارهای من", icon: <FiBell />, href: "/alarms", type: "link" },
-    { text: "اعتبار / تعرفه‌ها", icon: <FiCreditCard />, href: "/credits", type: "link" },
+    { text: "پروفایل", icon: <FiUser />, href: "/app/profile", type: "link" },
+    { text: "هشدارهای من", icon: <FiBell />, href: "/app/alarms", type: "link" },
+    { text: "اعتبار / تعرفه‌ها", icon: <FiCreditCard />, href: "/app/credits", type: "link" },
     { text: "ویژگی‌ها", icon: <FiList />, href: "/#features", type: "link", isHashLink: true },
     { text: "چطور کار می‌کند؟", icon: <FiHelpCircle />, href: "/#how-it-works", type: "link", isHashLink: true },
   ];
