@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { verifyOTP } from "../services/api";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const OTPInput = ({ phone }) => {
+  const navigate = useNavigate();
   const [code, setCode] = useState("");
 
   const handleSubmit = () => {
     verifyOTP(phone, code)
       .then(() => {
         toast.success("با موفقیت وارد شدید!");
-        // navigation handled in parent
+        navigate("/app/profile");
       })
       .catch((error) => {
         const message = error?.response?.data?.message;
