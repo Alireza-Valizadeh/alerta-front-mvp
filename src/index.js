@@ -5,6 +5,7 @@ import './assets/vazir-font.css'
 import './styles/reset.css';
 import './styles/globals.css';
 import App from './App';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,4 +14,6 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+serviceWorkerRegistration.register();
 
