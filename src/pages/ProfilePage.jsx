@@ -9,28 +9,21 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    let isMounted = true;
-
+  const fetchProfile = () => {
+    setLoading(true);
     getUsersProfile("/users/me")
       .then((userData) => {
-        if (isMounted) {
-          setUser(userData);
-          setLoading(false);
-        }
+        setUser(userData);
+        setLoading(false);
       })
       .catch((err) => {
-        if (isMounted) {
-          // Check isMounted here too
-          console.error(err);
-          toast.error("خطا در دریافت اطلاعات کاربر");
-          setLoading(false);
-        }
+        toast.error("خطا در دریافت اطلاعات کاربر");
+        setLoading(false);
       });
+  };
 
-    return () => {
-      isMounted = false;
-    };
+  useEffect(() => {
+    fetchProfile();
   }, []);
 
   if (loading) {
@@ -53,7 +46,7 @@ const ProfilePage = () => {
         {/* Changed div to main for semantics */}
         {/* The h1 for "پروفایل کاربری" can be uncommented if desired */}
         {/* <h1 style={{ textAlign: "center" }}>پروفایل کاربری</h1> */}
-        <Profile user={user} />
+        <Profile user={user} onProfileUpdated={fetchProfile} />
       </main>
       <BottomNav />
     </div>

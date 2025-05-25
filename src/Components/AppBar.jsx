@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FiArrowRight, FiUser, FiSettings } from "react-icons/fi";
+import { FiArrowRight, FiUser, FiSettings, FiLogOut } from "react-icons/fi";
+import Cookies from "js-cookie";
 
 const TITLES = {
   "/app/alarms": "هشدارها",
@@ -30,14 +31,27 @@ const AppBar = () => {
   const handleSettings = () => navigate("/app/settings");
   const handleProfile = () => navigate("/app/profile");
 
+  // Logout handler
+  const handleLogout = () => {
+    Cookies.remove("token");
+    navigate("/app/login", { replace: true });
+  };
+
   return (
     <header className="appbar-header">
       <div className="appbar-left">
-        {!showBack && showSettings && (
-          <button className="appbar-icon-btn" onClick={handleSettings} aria-label="تنظیمات">
-            <FiSettings size={24} />
+        {/* Show logout only on profile page */}
+        {path === "/app/profile" ? (
+          <button className="appbar-icon-btn" onClick={handleLogout} aria-label="خروج" title="خروج">
+            <FiLogOut size={24} color="#d32f2f" />
           </button>
-        )}
+        ) :
+          (!showBack && showSettings && (
+            <button className="appbar-icon-btn" onClick={handleSettings} aria-label="تنظیمات">
+              <FiSettings size={24} />
+            </button>
+          ))
+        }
       </div>
       <div className="appbar-title">{title}</div>
       <div className="appbar-right">

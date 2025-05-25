@@ -107,3 +107,23 @@ export const updateUserProfile = async (userId, data) => {
   const response = await api.put(`/users/${userId}`, data);
   return response.data;
 };
+
+export const getUserNotifications = async () => {
+  // try {
+  //   const response = await api.get("/notifications");
+  //   return response.data;
+  // } catch (error) {
+  //   console.error("Error getting notifications:", error);
+  //   throw new Error("Failed to get notifications");
+  // }
+  // MOCK DATA
+  return [
+    { id: 1, title: "خودروی جدید با معیارهای شما یافت شد!", date: "1403/03/10" },
+    { id: 1, title: "خودروی جدید با معیارهای شما یافت شد!", date: "1403/03/10" },
+    { id: 1, title: "خودروی جدید با معیارهای شما یافت شد!", date: "1403/03/10" },
+    { id: 1, title: "خودروی جدید با معیارهای شما یافت شد!", date: "1403/03/10" },
+    { id: 1, title: "خودروی جدید با معیارهای شما یافت شد!", date: "1403/03/10" },
+    { id: 2, title: "آگهی مورد علاقه شما به‌روزرسانی شد.", date: "1403/03/09" },
+    { id: 3, title: "یادآوری: اعتبار شما رو به پایان است.", date: "1403/03/08" }
+  ];
+};

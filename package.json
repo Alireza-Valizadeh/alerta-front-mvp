@@ -1,6 +1,6 @@
 {
-  "name": "hunter24-front-mvp",
-  "version": "0.1.0",
+  "name": "alerta-front-mvp",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
