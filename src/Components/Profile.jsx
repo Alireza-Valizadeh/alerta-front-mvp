@@ -1,135 +1,98 @@
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { FaUser, FaPhone, FaEnvelope, FaVenusMars, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
+import React, { useState } from "react";
+import { FiUser } from "react-icons/fi";
+import { FaEdit, FaSave, FaSignOutAlt } from "react-icons/fa";
 import { updateUserProfile } from "../services/api";
-import SelectBox from "./SelectBox";
+import toast from "react-hot-toast";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import '../styles/profile.css';
 
 const Profile = ({ user }) => {
-  const [isChanged, setIsChanged] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
     firstName: user?.firstName || "",
-    lastName: user?.lastName || "",
     email: user?.email || "",
-    gender: user?.gender || "Not Specified",
   });
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        firstName: user?.firstName || "",
-        lastName: user?.lastName || "",
-        email: user?.email || "",
-        gender: user?.gender || "Not Specified",
-      });
-    }
-  }, [user]);
+  if (!user) return <p>در حال بارگذاری...</p>;
 
-  if (!user || Object.keys(user).length === 0) return <p>در حال بارگذاری...</p>;
-
+  const handleEdit = () => setEditMode(true);
+  const handleCancel = () => {
+    setEditMode(false);
+    setFormData({ firstName: user?.firstName || "", email: user?.email || "" });
+  };
   const handleChange = (e) => {
-    setIsChanged(true);
     const { name, value } = e.target;
-    console.log({ name, value });
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
   const handleSave = async () => {
     try {
-      await updateUserProfile(user.id, formData);
+      await updateUserProfile(user.id, { firstName: formData.firstName, email: formData.email });
       toast.success("پروفایل با موفقیت به‌روزرسانی شد");
-    } catch (error) {
+      setEditMode(false);
+    } catch {
       toast.error("خطا در ذخیره اطلاعات کاربر");
     }
   };
-
-  const genderLabel = [
-    { value: "Male", label: "مرد" },
-    { value: "Female", label: "زن" },
-    { value: "Other", label: "سایر" },
-    { value: "Not Specified", label: "نامشخص" },
-  ];
+  const handleLogout = () => {
+    Cookies.remove("token");
+    navigate("/app/login", { replace: true });
+  };
 
   return (
-    <div className="profile-container">
-      <div className="profile-card">
-        <div className="profile-header">
-          <FaUser size={48} className="profile-icon" />
-          <div>
-            <h2 className="profile-name">
-              {formData.firstName || "-"} {formData.lastName || ""}
-            </h2>
-            <p className={`profile-status ${user.isAbandoned ? "inactive" : "active"}`}>
-              {user.isAbandoned ? (
-                <>
-                  <FaExclamationTriangle />
-                  غیر فعال
-                </>
-              ) : (
-                <>
-                  <FaCheckCircle /> فعال
-                </>
-              )}
-            </p>
-          </div>
+    <div className={`profile-minimal-card${editMode ? ' profile-edit-mode' : ''}`}>
+      <div className="profile-minimal-avatar" style={{ marginBottom: editMode ? '0.7rem' : '0.3rem', width: editMode ? 48 : 40, height: editMode ? 48 : 40 }}>
+        <FiUser size={editMode ? 36 : 28} color="#888" />
+      </div>
+      {!editMode && (
+        <div className="profile-name-view" style={{ fontSize: '1.05rem', fontWeight: 600, color: '#222', marginBottom: 0, textAlign: 'center' }}>
+          {user.firstName || "-"}
+          <br /> <br />
+          {user.phone || "-"}
         </div>
-
-        <div className="profile-info">
-          <div className="profile-row">
-            <div className="profile-label">
-              <FaPhone /> تلفن:
-            </div>
-            <div className="profile-value">{user.phone}</div>
+      )}
+      {editMode && (
+        <>
+          <div className="profile-field-group compact">
+            <label className="profile-label-minimal compact">نام</label>
+            <input
+              className="profile-input-minimal compact"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              autoFocus
+            />
           </div>
-
-          <div className="profile-row">
-            <div className="profile-label">
-              <FaEnvelope /> ایمیل:
-            </div>
-            <div className="profile-value">
-              <input name="email" value={formData.email} onChange={handleChange} type="email" />
-            </div>
+          <div className="profile-field-group compact">
+            <label className="profile-label-minimal compact">شماره موبایل</label>
+            <input
+              className="profile-input-minimal compact"
+              value={user.phone || "-"}
+              disabled
+            />
           </div>
-
-          <div className="profile-row">
-            <div className="profile-label">
-              <FaVenusMars /> جنسیت:
-            </div>
-            <div className="profile-value">
-              <SelectBox
-                options={genderLabel}
-                value={genderLabel.find((g) => g.value === formData.gender)} // ✅ convert to full object
-                onChange={(selected) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    gender: selected ? selected.value : "Not Specified",
-                  }))
-                }
-                placeholder="انتخاب جنسیت"
-                name="gender"
-              />
-            </div>
+          <div className="profile-field-group compact">
+            <label className="profile-label-minimal compact">ایمیل</label>
+            <input
+              className="profile-input-minimal compact"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
           </div>
-
-          <div className="profile-row">
-            <div className="profile-label">نام:</div>
-            <div className="profile-value">
-              <input name={"firstName"} value={formData.firstName} onChange={handleChange} />
-            </div>
-          </div>
-
-          <div className="profile-row">
-            <div className="profile-label">نام خانوادگی:</div>
-            <div className="profile-value">
-              <input name="lastName" value={formData.lastName} onChange={handleChange} />
-            </div>
-          </div>
-
-          <div className="profile-actions">
-            <button className="submit-button" disabled={!isChanged} onClick={handleSave}>
-              ذخیره تغییرات
-            </button>
-          </div>
-        </div>
+        </>
+      )}
+      <div className="profile-btn-row compact">
+        {editMode ? (
+          <>
+            <button className="profile-btn-minimal profile-btn-outline compact" onClick={handleSave}><FaSave style={{ marginLeft: 6 }} />ذخیره</button>
+            <button className="profile-btn-minimal profile-btn-outline compact" onClick={handleCancel}>انصراف</button>
+          </>
+        ) : (
+          <button className="profile-btn-minimal profile-btn-outline compact" onClick={handleEdit}><FaEdit style={{ marginLeft: 6 }} />ویرایش</button>
+        )}
+        <button className="profile-btn-minimal profile-btn-text-red compact" onClick={handleLogout}><FaSignOutAlt style={{ marginLeft: 6 }} />خروج</button>
       </div>
     </div>
   );
