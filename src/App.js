@@ -12,6 +12,7 @@ import LandingPage from './pages/LandingPage';
 import ViewAlarmsPage from './pages/ViewAlarmsPage';
 import SettingsPage from './pages/SettingsPage';
 import CreditsPage from './pages/CreditsPage';
+import LoadingPage from './pages/LoadingPage';
 
 const App = () => {
   return (
@@ -24,18 +25,17 @@ const App = () => {
       />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/app/login" element={<LoginPage />} />
-        <Route path="/app/otp" element={<LoginPage />} />
         <Route path="/app/*" element={
-          <PrivateRoute>
-            <Routes>
-              <Route path="alarms" element={<ViewAlarmsPage />} />
-              <Route path="alarms/edit" element={<AlarmPage />} />
-              <Route path="profile" element={<ProfilePage />} />
-              <Route path="settings" element={<SettingsPage />} />
-              <Route path="credits" element={<CreditsPage />} />
-            </Routes>
-          </PrivateRoute>
+          <Routes>
+            <Route path="" element={<LoadingPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="otp" element={<LoginPage />} />
+            <Route path="alarms" element={<PrivateRoute><ViewAlarmsPage /></PrivateRoute>} />
+            <Route path="alarms/edit" element={<PrivateRoute><AlarmPage /></PrivateRoute>} />
+            <Route path="profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+            <Route path="settings" element={<PrivateRoute><SettingsPage /></PrivateRoute>} />
+            <Route path="credits" element={<PrivateRoute><CreditsPage /></PrivateRoute>} />
+          </Routes>
         } />
       </Routes>
     </Router>

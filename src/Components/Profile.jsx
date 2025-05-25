@@ -7,19 +7,19 @@ import SelectBox from "./SelectBox";
 const Profile = ({ user }) => {
   const [isChanged, setIsChanged] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: user.firstName || "",
-    lastName: user.lastName || "",
-    email: user.email || "",
-    gender: user.gender || "Not Specified",
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
+    email: user?.email || "",
+    gender: user?.gender || "Not Specified",
   });
 
   useEffect(() => {
     if (user) {
       setFormData({
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        email: user.email || "",
-        gender: user.gender || "Not Specified",
+        firstName: user?.firstName || "",
+        lastName: user?.lastName || "",
+        email: user?.email || "",
+        gender: user?.gender || "Not Specified",
       });
     }
   }, [user]);
