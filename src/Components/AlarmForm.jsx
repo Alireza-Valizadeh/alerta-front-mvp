@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { hardcodedDurations, hardcodedMileage, hardcodedPrices, hardcodedYears } from "./constants";
 
 const mapItemsFromAPI = (items) => {
+  if (!items) return [];
   if (!Array.isArray(items)) {
     return { value: items?.id, label: items?.title };
   }
-  return items?.map((item) => ({
+  return items.map((item) => ({
     value: item.id,
     label: item.title,
   }));
@@ -108,25 +109,34 @@ const AlarmForm = ({ existingAlarmData }) => {
       setCity(null);
       setCities([]);
     }
-    if (!state?.value) return;
-    getStateCities(state?.value).then((data) => {
-      setCities(mapItemsFromAPI(data));
-    });
-  }, [state?.value, isEditMode]);
+    if (state?.value) {
+      getStateCities(state?.value).then((data) => {
+        const newOptions = mapItemsFromAPI(data);
+        setCities(newOptions);
+        if (!newOptions.find((c) => c.value === city?.value)) {
+          setCity(null);
+        }
+      });
+    } else {
+      setCities([]);
+      setCity(null);
+    }
+  }, [state, isEditMode]);
 
   useEffect(() => {
     if (make?.value) {
       getMakeModels(make.value).then((data) => {
-        setModels(mapItemsFromAPI(data));
-        if (existingAlarmData?.model && !data.find((m) => m.id === existingAlarmData.model.value)) {
-          // setModel(null);
+        const newOptions = mapItemsFromAPI(data);
+        setModels(newOptions);
+        if (!newOptions.find((m) => m.value === model?.value)) {
+          setModel(null);
         }
       });
     } else {
       setModels([]);
-      if (!isEditMode) setModel(null);
+      setModel(null);
     }
-  }, [make, isEditMode, existingAlarmData?.model]);
+  }, [make]);
 
   useEffect(() => {
     const min = minPrice?.value || 0;

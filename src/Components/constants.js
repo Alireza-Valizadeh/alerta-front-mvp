@@ -1,3 +1,5 @@
+import { formatPriceLabel } from "../utils/formatters";
+
 const toPersianDigits = (str) => str.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
 
 export const hardcodedPrices = [
@@ -6,12 +8,12 @@ export const hardcodedPrices = [
     const million = value / 1000000;
     return {
       value,
-      label: `${toPersianDigits(million)} میلیون تومان`,
+      label: formatPriceLabel(million),
     };
   }),
   ...[1250, 1500, 1750, 2000, 2500, 3000, 4000].map((million) => ({
     value: million * 1000000,
-    label: `${toPersianDigits(million)} میلیون تومان`,
+    label: formatPriceLabel(million),
   })),
 ];
 

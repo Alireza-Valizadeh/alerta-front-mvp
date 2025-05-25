@@ -18,6 +18,7 @@ import {
   FiTrash2,
 } from "react-icons/fi"; // Using react-icons
 import "../styles/AlarmCard.css"; // We'll create this CSS file
+import { getPriceLabel } from "../utils/formatters";
 
 // Helper to display a range or a single value nicely
 const formatRange = (min, max, unit = "", prefix = "") => {
@@ -102,40 +103,37 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
       <div className="alarm-card-body">
         <div className="alarm-detail-item">
           <FiTag className="alarm-detail-icon" />
-          <span>
-            <strong>برند و مدل:</strong>
-            {alarm.model?.title || "نامشخص"}
-          </span>
+          <span className="alarm-detail-label">برند و مدل:</span>
+          <span className="alarm-detail-value">{alarm.model?.title || "نامشخص"}</span>
         </div>
         <div className="alarm-detail-item">
           <FiMapPin className="alarm-detail-icon" />
-          <span>
-            <strong>موقعیت:</strong> {alarm.state?.title || "نامشخص"} - {alarm.city?.title || "نامشخص"}
-          </span>
+          <span className="alarm-detail-label">موقعیت:</span>
+          <span className="alarm-detail-value">{alarm.state?.title || "نامشخص"} - {alarm.city?.title || "نامشخص"}</span>
         </div>
         <div className="alarm-detail-item">
           <FiDollarSign className="alarm-detail-icon" />
-          <span>
-            <strong>قیمت:</strong> {formatRange(alarm.minPrice, alarm.maxPrice, "تومان")}
+          <span className="alarm-detail-label">قیمت:</span>
+          <span className="alarm-detail-value">
+            {alarm.minPrice && alarm.maxPrice
+              ? `از ${getPriceLabel(alarm.minPrice)} تا ${getPriceLabel(alarm.maxPrice)}`
+              : "نامشخص"}
           </span>
         </div>
         <div className="alarm-detail-item">
           <FiCalendar className="alarm-detail-icon" />
-          <span>
-            <strong>سال ساخت:</strong> {formatRange(alarm.minYear, alarm.maxYear, "سال")}
-          </span>
+          <span className="alarm-detail-label">سال ساخت:</span>
+          <span className="alarm-detail-value">{formatRange(alarm.minYear, alarm.maxYear, "سال")}</span>
         </div>
 
         {/* Expanded section */}
         <div className={`alarm-card-expanded-details ${isExpanded ? "open" : ""}`}>
           {additionalDetails.map((detail, index) =>
-            // Only render if the value is not "نامشخص" or if you always want to show the title
             detail.value && detail.value !== "نامشخص" ? (
               <div key={index} className="alarm-detail-item">
                 {detail.icon}
-                <span>
-                  <strong>{detail.label}:</strong> {detail.value}
-                </span>
+                <span className="alarm-detail-label">{detail.label}:</span>
+                <span className="alarm-detail-value">{detail.value}</span>
               </div>
             ) : null
           )}

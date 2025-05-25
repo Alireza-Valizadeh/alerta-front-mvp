@@ -143,10 +143,20 @@
   color: #343a40;
 }
 
-.alarm-detail-item strong {
+.alarm-detail-label {
+  min-width: 90px;
+  font-weight: bold;
   color: #0a2540;
-  min-width: 70px;
+  text-align: right;
   display: inline-block;
+}
+
+.alarm-detail-value {
+  flex: 1;
+  text-align: right;
+  color: #343a40;
+  display: inline-block;
+  word-break: break-word;
 }
 
 .alarm-detail-icon {
