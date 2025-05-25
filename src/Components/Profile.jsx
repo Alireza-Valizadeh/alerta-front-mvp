@@ -5,6 +5,7 @@ import { updateUserProfile, getUserNotifications } from "../services/api";
 import toast from "react-hot-toast";
 import '../styles/profile.css';
 import logo from '../assets/alerta.jpg';
+import { MdPerson } from "react-icons/md";
 
 const Profile = ({ user, onProfileUpdated }) => {
   const [editMode, setEditMode] = useState(false);
@@ -93,7 +94,7 @@ const Profile = ({ user, onProfileUpdated }) => {
           </div>
           <div className="profile-field-group compact" style={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'stretch', marginBottom: 10 }}>
             <label className="profile-label-minimal compact" >
-              <FiUser size={14} color="#1976d2" style={{ marginLeft: 3 }} />
+              <MdPerson size={14} color="#1976d2" style={{ marginLeft: 3 }} />
               شماره موبایل
             </label>
             <input

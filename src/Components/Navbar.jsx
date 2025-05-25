@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // If using React Router
 import "../styles/navbar.css";
 import MobileMenu from "./MobileMenu"; // Import the new component
-import { FiMenu } from "react-icons/fi"; // Hamburger icon
+import { MdMenu } from "react-icons/md"; // Hamburger icon
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -48,7 +48,7 @@ const Navbar = () => {
               {/* Middle Element: Hamburger Button */}
               <div className="hamburger-container-mobile-center">
                 <button onClick={toggleMobileMenu} className="hamburger-button" aria-label="Open menu">
-                  <FiMenu size={28} />
+                  <MdMenu size={28} />
                 </button>
               </div>
 

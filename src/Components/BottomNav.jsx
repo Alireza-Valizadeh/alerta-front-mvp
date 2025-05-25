@@ -1,13 +1,13 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FiBell, FiUser, FiSettings, FiPlus } from "react-icons/fi";
+import { MdNotifications, MdPerson, MdSettings, MdAdd } from "react-icons/md";
 import { BsCreditCard2Back } from "react-icons/bs";
 
 const navItems = [
-  { label: "پروفایل", icon: <FiUser size={22} />, path: "/app/profile" },
-  { label: "هشدارها", icon: <FiBell size={22} />, path: "/app/alarms" },
+  { label: "پروفایل", icon: <MdPerson size={22} />, path: "/app/profile" },
+  { label: "هشدارها", icon: <MdNotifications size={22} />, path: "/app/alarms" },
   { label: "اعتبارها", icon: <BsCreditCard2Back size={22} />, path: "/app/credits" },
-  { label: "تنظیمات", icon: <FiSettings size={22} />, path: "/app/settings" },
+  { label: "تنظیمات", icon: <MdSettings size={22} />, path: "/app/settings" },
 ];
 navItems.reverse();
 
@@ -33,7 +33,7 @@ const BottomNav = () => {
             onClick={() => navigate("/app/alarms/edit")}
             aria-label="ایجاد هشدار جدید"
           >
-            <FiPlus size={28} />
+            <MdAdd size={28} />
           </button>
         </li>
         {navItems.slice(2).map((item) => (

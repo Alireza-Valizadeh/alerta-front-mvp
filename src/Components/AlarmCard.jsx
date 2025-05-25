@@ -2,21 +2,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  FiEdit,
-  FiTag,
-  FiMapPin,
-  FiCalendar,
-  FiDollarSign,
-  FiDroplet,
-  FiZap,
-  FiShield,
-  FiCpu,
-  FiLayers,
-  FiGitMerge,
-  FiChevronUp,
-  FiChevronDown,
-  FiTrash2,
-} from "react-icons/fi"; // Using react-icons
+  MdEdit,
+  MdLabel,
+  MdLocationOn,
+  MdCalendarToday,
+  MdAttachMoney,
+  MdInvertColors,
+  MdLocalGasStation,
+  MdSecurity,
+  MdMemory,
+  MdDirectionsCar,
+  MdMergeType,
+  MdExpandLess,
+  MdExpandMore,
+  MdDelete,
+} from "react-icons/md";
 import "../styles/AlarmCard.css"; // We'll create this CSS file
 import { getPriceLabel } from "../utils/formatters";
 
@@ -58,24 +58,24 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
   };
 
   const additionalDetails = [
-    { label: "رنگ بدنه", value: formatMultiSelect(alarm.colors), icon: <FiDroplet className="alarm-detail-icon" /> },
-    { label: "نوع سوخت", value: formatMultiSelect(alarm.fuelTypes), icon: <FiZap className="alarm-detail-icon" /> },
+    { label: "رنگ بدنه", value: formatMultiSelect(alarm.colors), icon: <MdInvertColors className="alarm-detail-icon" /> },
+    { label: "نوع سوخت", value: formatMultiSelect(alarm.fuelTypes), icon: <MdLocalGasStation className="alarm-detail-icon" /> },
     {
       label: "وضعیت شاسی",
       value: formatMultiSelect(alarm.chassisStates),
-      icon: <FiShield className="alarm-detail-icon" />,
+      icon: <MdSecurity className="alarm-detail-icon" />,
     },
     {
       label: "وضعیت موتور",
       value: formatMultiSelect(alarm.engineStates),
-      icon: <FiCpu className="alarm-detail-icon" />,
+      icon: <MdMemory className="alarm-detail-icon" />,
     },
     {
       label: "وضعیت بدنه",
       value: formatMultiSelect(alarm.bodyStates),
-      icon: <FiLayers className="alarm-detail-icon" />,
+      icon: <MdDirectionsCar className="alarm-detail-icon" />,
     },
-    { label: "گیربکس", value: formatMultiSelect(alarm.gearboxes), icon: <FiGitMerge className="alarm-detail-icon" /> },
+    { label: "گیربکس", value: formatMultiSelect(alarm.gearboxes), icon: <MdMergeType className="alarm-detail-icon" /> },
   ];
 
   return (
@@ -84,10 +84,10 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
         {/* Action Icons - Upper Left (visually top-right in RTL) */}
         <div className="alarm-card-actions">
           <button onClick={handleEdit} className="action-icon-button edit-button" aria-label="ویرایش هشدار">
-            <FiEdit />
+            <MdEdit />
           </button>
           <button onClick={handleDelete} className="action-icon-button delete-button" aria-label="حذف هشدار">
-            <FiTrash2 color="red" enableBackground={"true"} />
+            <MdDelete color="red" />
           </button>
           <button
             onClick={toggleExpand}
@@ -95,24 +95,24 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
             aria-label={isExpanded ? "بستن جزئیات" : "جزئیات بیشتر"}
             aria-expanded={isExpanded}
           >
-            {isExpanded ? <FiChevronUp /> : <FiChevronDown />}
+            {isExpanded ? <MdExpandLess /> : <MdExpandMore />}
           </button>
         </div>
         <h3>{alarmName}</h3>
       </div>
       <div className="alarm-card-body">
         <div className="alarm-detail-item">
-          <FiTag className="alarm-detail-icon" />
+          <MdLabel className="alarm-detail-icon" />
           <span className="alarm-detail-label">برند و مدل:</span>
           <span className="alarm-detail-value">{alarm.model?.title || "نامشخص"}</span>
         </div>
         <div className="alarm-detail-item">
-          <FiMapPin className="alarm-detail-icon" />
+          <MdLocationOn className="alarm-detail-icon" />
           <span className="alarm-detail-label">موقعیت:</span>
           <span className="alarm-detail-value">{alarm.state?.title || "نامشخص"} - {alarm.city?.title || "نامشخص"}</span>
         </div>
         <div className="alarm-detail-item">
-          <FiDollarSign className="alarm-detail-icon" />
+          <MdAttachMoney className="alarm-detail-icon" />
           <span className="alarm-detail-label">قیمت:</span>
           <span className="alarm-detail-value">
             {alarm.minPrice && alarm.maxPrice
@@ -121,7 +121,7 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
           </span>
         </div>
         <div className="alarm-detail-item">
-          <FiCalendar className="alarm-detail-icon" />
+          <MdCalendarToday className="alarm-detail-icon" />
           <span className="alarm-detail-label">سال ساخت:</span>
           <span className="alarm-detail-value">{formatRange(alarm.minYear, alarm.maxYear, "سال")}</span>
         </div>

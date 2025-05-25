@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FiArrowRight, FiUser, FiSettings, FiLogOut } from "react-icons/fi";
+import { MdArrowForward, MdPerson, MdSettings, MdLogout } from "react-icons/md";
 import Cookies from "js-cookie";
 
 const TITLES = {
@@ -43,12 +43,12 @@ const AppBar = () => {
         {/* Show logout only on profile page */}
         {path === "/app/profile" ? (
           <button className="appbar-icon-btn" onClick={handleLogout} aria-label="خروج" title="خروج">
-            <FiLogOut size={24} color="#d32f2f" />
+            <MdLogout size={24} color="#d32f2f" />
           </button>
         ) :
           (!showBack && showSettings && (
             <button className="appbar-icon-btn" onClick={handleSettings} aria-label="تنظیمات">
-              <FiSettings size={24} />
+              <MdSettings size={24} />
             </button>
           ))
         }
@@ -57,12 +57,12 @@ const AppBar = () => {
       <div className="appbar-right">
         {showBack ? (
           <button className="appbar-icon-btn" onClick={handleBack} aria-label="بازگشت">
-            <FiArrowRight size={24} />
+            <MdArrowForward size={24} />
           </button>
         ) : (
           showProfile && (
             <button className="appbar-icon-btn" onClick={handleProfile} aria-label="پروفایل">
-              <FiUser size={24} />
+              <MdPerson size={24} />
             </button>
           )
         )}

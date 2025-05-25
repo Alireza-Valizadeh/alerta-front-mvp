@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/mobileMenu.css";
-import { FiX, FiUser, FiBell, FiCreditCard, FiLogOut, FiHome, FiList, FiHelpCircle } from "react-icons/fi";
+import { MdClose, MdPerson, MdNotifications, MdCreditCard, MdLogout, MdHome, MdList, MdHelp } from "react-icons/md";
 import Cookies from "js-cookie";
 // import ProfilePlaceholder from '../assets/profile-placeholder.png'; // Optional: if you have a placeholder image
 
@@ -50,12 +50,12 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
   // Menu items - adjust routes and text as needed
   const menuItems = [
-    { text: "صفحه اصلی", icon: <FiHome />, href: "/", type: "link" },
-    { text: "پروفایل", icon: <FiUser />, href: "/app/profile", type: "link" },
-    { text: "هشدارهای من", icon: <FiBell />, href: "/app/alarms", type: "link" },
-    { text: "اعتبار / تعرفه‌ها", icon: <FiCreditCard />, href: "/app/credits", type: "link" },
-    { text: "ویژگی‌ها", icon: <FiList />, href: "/#features", type: "link", isHashLink: true },
-    { text: "چطور کار می‌کند؟", icon: <FiHelpCircle />, href: "/#how-it-works", type: "link", isHashLink: true },
+    { text: "صفحه اصلی", icon: <MdHome />, href: "/", type: "link" },
+    { text: "پروفایل", icon: <MdPerson />, href: "/app/profile", type: "link" },
+    { text: "هشدارهای من", icon: <MdNotifications />, href: "/app/alarms", type: "link" },
+    { text: "اعتبار / تعرفه‌ها", icon: <MdCreditCard />, href: "/app/credits", type: "link" },
+    { text: "ویژگی‌ها", icon: <MdList />, href: "/#features", type: "link", isHashLink: true },
+    { text: "چطور کار می‌کند؟", icon: <MdHelp />, href: "/#how-it-works", type: "link", isHashLink: true },
   ];
 
   return (
@@ -69,11 +69,11 @@ const MobileMenu = ({ isOpen, onClose }) => {
           {/* Optional: Profile Info */}
           <div className="mobile-menu-profile">
             {/* <img src={ProfilePlaceholder} alt="پروفایل" className="mobile-menu-profile-img" /> */}
-            <FiUser size={40} className="mobile-menu-profile-icon-placeholder" />
+            <MdPerson size={40} className="mobile-menu-profile-icon-placeholder" />
             <span className="mobile-menu-profile-name">نام کاربر</span> {/* Replace with actual user name */}
           </div>
           <button onClick={onClose} className="mobile-menu-close-btn">
-            <FiX size={28} />
+            <MdClose size={28} />
           </button>
         </div>
         <nav className="mobile-menu-nav">
@@ -88,7 +88,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
             ))}
             <li>
               <button onClick={handleSignOut} className="mobile-menu-link mobile-menu-signout-btn">
-                <FiLogOut />
+                <MdLogout />
                 <span>خروج از حساب</span>
               </button>
             </li>
