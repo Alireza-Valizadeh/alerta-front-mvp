@@ -171,7 +171,7 @@ const Profile = ({ user, onProfileUpdated }) => {
               <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                 {notifications.map((notif, idx) => (
                   <li key={notif.id || idx} style={{ borderBottom: idx !== notifications.length - 1 ? '1px solid #f0f0f0' : 'none', padding: '10px 0' }}>
-                    <div style={{ fontWeight: 500, color: '#222', fontSize: '0.98rem' }}>{notif.title || notif.message || '-'}</div>
+                    <div style={{ fontWeight: 500, color: '#222', fontSize: '0.98rem' }}>{notif.text || notif.message || '-'}</div>
                     {notif.date && (
                       <div style={{ color: '#888', fontSize: '0.92rem', marginTop: 2 }}>{notif.date}</div>
                     )}
