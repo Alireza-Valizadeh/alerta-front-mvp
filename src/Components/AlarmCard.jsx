@@ -28,7 +28,7 @@ const formatRange = (min, max, unit = "", prefix = "") => {
   }
   if (min) return `${prefix}حداقل ${min}`;
   if (max) return `${prefix}حداکثر ${max}`;
-  return unit ? `نامشخص ${unit}` : "نامشخص";
+  return "_"
 };
 
 // Helper to display multiple selected items (like colors)
