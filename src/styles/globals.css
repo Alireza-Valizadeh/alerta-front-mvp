@@ -525,6 +525,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom:  12px;
 }
 .bottom-nav-list {
     display: flex;

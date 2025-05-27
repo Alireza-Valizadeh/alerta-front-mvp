@@ -13,6 +13,8 @@ import ViewAlarmsPage from './pages/ViewAlarmsPage';
 import SettingsPage from './pages/SettingsPage';
 import CreditsPage from './pages/CreditsPage';
 import LoadingPage from './pages/LoadingPage';
+import AboutPage from './pages/AboutPage';
+import PrivacyPage from './pages/PrivacyPage';
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
       />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/app/*" element={
           <Routes>
             <Route path="" element={<LoadingPage />} />
