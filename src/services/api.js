@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 const baseURL =
   process.env.NODE_ENV === "production"
     ? "https://alerta.runflare.run/api/v1"// Production URL
-    : "http://192.168.1.79:3000/api/v1" // Dev URL
+    : "http://localhost:3000/api/v1" // Dev URL
 
 const api = axios.create({
   baseURL,

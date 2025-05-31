@@ -28,7 +28,7 @@ const formatRange = (min, max, unit = "", prefix = "") => {
   }
   if (min) return `${prefix}حداقل ${min}`;
   if (max) return `${prefix}حداکثر ${max}`;
-  return "_"
+  return "_";
 };
 
 // Helper to display multiple selected items (like colors)
@@ -46,7 +46,8 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
   };
 
   // A simple generated name if one isn't provided
-  const alarmName = alarm.name || ` ${alarm.model?.title || "خودرو"} (${alarm.city?.title || "شهرهای مختلف"})`;
+  const brandName = alarm.model?.title ? alarm.model.title : alarm.make?.title + " - همه مدل ها";
+  const alarmName = ` ${alarm.model?.title || alarm.make?.title} (${alarm.city?.title || alarm.state?.title})`;
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -58,8 +59,16 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
   };
 
   const additionalDetails = [
-    { label: "رنگ بدنه", value: formatMultiSelect(alarm.colors), icon: <MdInvertColors className="alarm-detail-icon" /> },
-    { label: "نوع سوخت", value: formatMultiSelect(alarm.fuelTypes), icon: <MdLocalGasStation className="alarm-detail-icon" /> },
+    {
+      label: "رنگ بدنه",
+      value: formatMultiSelect(alarm.colors),
+      icon: <MdInvertColors className="alarm-detail-icon" />,
+    },
+    {
+      label: "نوع سوخت",
+      value: formatMultiSelect(alarm.fuelTypes),
+      icon: <MdLocalGasStation className="alarm-detail-icon" />,
+    },
     {
       label: "وضعیت شاسی",
       value: formatMultiSelect(alarm.chassisStates),
@@ -104,12 +113,14 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
         <div className="alarm-detail-item">
           <MdLabel className="alarm-detail-icon" />
           <span className="alarm-detail-label">برند و مدل:</span>
-          <span className="alarm-detail-value">{alarm.model?.title || "نامشخص"}</span>
+          <span className="alarm-detail-value">{brandName}</span>
         </div>
         <div className="alarm-detail-item">
           <MdLocationOn className="alarm-detail-icon" />
           <span className="alarm-detail-label">موقعیت:</span>
-          <span className="alarm-detail-value">{alarm.state?.title || "نامشخص"} - {alarm.city?.title || "نامشخص"}</span>
+          <span className="alarm-detail-value">
+            {alarm.state?.title || ""} - {alarm.city?.title || "همه شهر ها"}
+          </span>
         </div>
         <div className="alarm-detail-item">
           <MdAttachMoney className="alarm-detail-icon" />
