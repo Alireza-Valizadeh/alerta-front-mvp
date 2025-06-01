@@ -8,7 +8,7 @@ const TITLES = {
   "/app/alarms/edit": "ویرایش هشدار",
   "/app/profile": "پروفایل",
   "/app/settings": "تنظیمات",
-  "/app/credits": "اعتبارها",
+  "/app/credits": "پیامک ها"
 };
 
 const AppBar = () => {

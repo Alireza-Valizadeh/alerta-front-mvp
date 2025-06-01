@@ -1,20 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "../Components/AppBar";
 import BottomNav from "../Components/BottomNav";
+import { getUserTransactions } from "../services/api";
+import toast from "react-hot-toast";
+import "../styles/CreditsPage.css";
 
-const CreditsPage = () => (
-  <div className="page-wrapper">
-    <AppBar />
-    <main className="page-content">
-      <h1>اعتبارها</h1>
-      {/* <p>در این صفحه می‌توانید اعتبارهای خود را مشاهده و مدیریت کنید.</p> */}
-      <p>در حال حاضر استفاده از پلتفرم به صورت رایگان است.</p>
-      <div style={{ fontSize: "3rem", marginTop: "1rem", color: "#1976d2", textAlign: "center" }}>
-        😊
-      </div>
-    </main>
-    <BottomNav />
-  </div>
-);
+const transactionTypeLabels = {
+  PURCHASE: "خرید پیامک",
+  USAGE: "ارسال پیامک",
+  BONUS: "پیامک هدیه",
+  REFUND: "بازگشت پیامک",
+  ADJUSTMENT: "تغییر دستی ادمین",
+};
+
+const CreditsPage = () => {
+  const [loading, setLoading] = useState(true);
+  const [balance, setBalance] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    getUserTransactions()
+      .then((data) => {
+        setBalance(data.balance || 0);
+        setTransactions(data.transactions || []);
+        setLoading(false);
+      })
+      .catch(() => {
+        toast.error("خطا در دریافت اطلاعات تراکنش‌ها");
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <div className="page-wrapper credits-page-wrapper">
+      <AppBar />
+      <main className="credits-page-content">
+        <div className="credits-balance-card">
+          <div className="credits-balance-label">موجودی پیامک</div>
+          <div className={`credits-balance-amount${balance < 0 ? ' negative' : ''}`}>{Math.abs(balance).toLocaleString()} پیامک</div>
+        </div>
+        <div className="credits-transactions-section">
+          <div className="credits-transactions-header">
+            <h2>تراکنش‌ها</h2>
+          </div>
+          {loading ? (
+            <div className="credits-loading">در حال بارگذاری...</div>
+          ) : transactions.length === 0 ? (
+            <div className="credits-no-transactions">تراکنشی وجود ندارد.</div>
+          ) : (
+            <div className="credits-transactions-list">
+              {transactions.map((tx) => (
+                <div className="credits-transaction-card" key={tx.id}>
+                  <div className="credits-transaction-row">
+                    <span className={`credits-transaction-amount ${tx.amount > 0 ? "positive" : "negative"}`}>{Math.abs(tx.amount).toLocaleString()} پیامک</span>
+                    <span className={`credits-transaction-type ${tx.amount > 0 ? "positive" : "negative"}`}>{transactionTypeLabels[tx.type] || tx.type}</span>
+                  </div>
+                  <div className="credits-transaction-row credits-transaction-desc-row">
+                    <span className="credits-transaction-desc">{tx.description || "-"}</span>
+                    <span className="credits-transaction-date">{new Date(tx.createdAt).toLocaleDateString("fa-IR", { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                  </div>
+                  <div className={`credits-transaction-balance-after ${Number(tx.balanceAfter) > 0 ? 'positive' : Number(tx.balanceAfter) < 0 ? 'negative' : ''}`}>موجودی پس از تراکنش: {Math.abs(tx.balanceAfter).toLocaleString()} پیامک</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+      <BottomNav />
+    </div>
+  );
+};
 
 export default CreditsPage; 

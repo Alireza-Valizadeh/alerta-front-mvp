@@ -1,0 +1,174 @@
+/* CreditsPage.css */
+.credits-page-wrapper {
+    background: #f7f9fa;
+    min-height: 100vh;
+    direction: rtl;
+}
+
+.credits-page-content {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 5rem 1rem;
+}
+
+.credits-balance-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem 1rem 1.2rem 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+}
+
+.credits-balance-label {
+    font-size: 1.1rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+}
+
+.credits-balance-amount {
+    font-size: 2.1rem;
+    font-weight: bold;
+    color: #1976d2;
+    letter-spacing: 1px;
+}
+
+.credits-balance-amount.negative {
+    color: #e53935;
+}
+
+.credits-transactions-section {
+    background: none;
+}
+
+.credits-transactions-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.credits-transactions-header h2 {
+    font-size: 1.2rem;
+    color: #222;
+    margin: 0;
+}
+
+.credits-loading,
+.credits-no-transactions {
+    text-align: center;
+    color: #888;
+    padding: 2rem 0;
+    font-size: 1.1rem;
+}
+
+.credits-transactions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.credits-transaction-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+    padding: 1.1rem 1rem 0.8rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.credits-transaction-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.credits-transaction-amount {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.credits-transaction-balance-after.positive {
+    color: #1976d2;
+}
+
+.credits-transaction-balance-after.negative {
+    color: #e53935;
+}
+
+.credits-transaction-amount.positive {
+    color: #1976d2;
+}
+
+.credits-transaction-amount.negative {
+    color: #e53935;
+}
+
+.credits-transaction-type {
+    font-size: 0.98rem;
+    color: #1976d2;
+    background: #e3f0ff;
+    border-radius: 8px;
+    padding: 0.2rem 0.7rem;
+    font-weight: 500;
+}
+
+.credits-transaction-type.positive {
+    color: #1976d2;
+    background: #e3f0ff;
+}
+
+.credits-transaction-type.negative {
+    color: #e53935;
+    background: #ffeaea;
+}
+
+.credits-transaction-desc-row {
+    font-size: 0.97rem;
+    color: #666;
+    gap: 0.7rem;
+}
+
+.credits-transaction-desc {
+    flex: 1;
+    color: #444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.credits-transaction-date {
+    color: #888;
+    font-size: 0.93rem;
+    white-space: nowrap;
+}
+
+.credits-transaction-balance-after {
+    font-size: 0.93rem;
+    color: #1976d2;
+    background: #f3f8fd;
+    border-radius: 7px;
+    padding: 0.18rem 0.7rem;
+    width: fit-content;
+    margin-right: auto;
+    margin-top: 0.2rem;
+}
+
+@media (max-width: 480px) {
+    .credits-page-content {
+        padding: 1rem 0.2rem 5rem 0.2rem;
+    }
+
+    .credits-balance-card {
+        padding: 1.1rem 0.5rem 1rem 0.5rem;
+    }
+
+    .credits-transaction-card {
+        padding: 0.9rem 0.5rem 0.7rem 0.5rem;
+    }
+}

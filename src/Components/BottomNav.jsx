@@ -6,7 +6,7 @@ import { BsCreditCard2Back } from "react-icons/bs";
 const navItems = [
   { label: "پروفایل", icon: <MdPerson size={22} />, path: "/app/profile" },
   { label: "هشدارها", icon: <MdNotifications size={22} />, path: "/app/alarms" },
-  { label: "اعتبارها", icon: <BsCreditCard2Back size={22} />, path: "/app/credits" },
+  { label: "پیامک ها", icon: <BsCreditCard2Back size={22} />, path: "/app/credits" },
   { label: "تنظیمات", icon: <MdSettings size={22} />, path: "/app/settings" },
 ];
 navItems.reverse();
