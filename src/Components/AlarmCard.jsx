@@ -16,9 +16,13 @@ import {
   MdExpandLess,
   MdExpandMore,
   MdDelete,
+  MdToggleOff,
+  MdToggleOn,
 } from "react-icons/md";
 import "../styles/AlarmCard.css"; // We'll create this CSS file
 import { getPriceLabel } from "../utils/formatters";
+import { updateAlarm } from "../services/api";
+import toast from "react-hot-toast";
 
 // Helper to display a range or a single value nicely
 const formatRange = (min, max, unit = "", prefix = "") => {
@@ -40,6 +44,7 @@ const formatMultiSelect = (items) => {
 const AlarmCard = ({ alarm, onDeleteAlarm }) => {
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(alarm.isDisabled);
   const handleEdit = (e) => {
     e.stopPropagation();
     navigate("/app/alarms/edit", { state: { alarmToEdit: alarm } });
@@ -56,6 +61,17 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
   const handleDelete = (e) => {
     e.stopPropagation();
     onDeleteAlarm(alarm.id);
+  };
+
+  const handleToggleDisabled = async (e) => {
+    e.stopPropagation();
+    try {
+      await updateAlarm(alarm.id, { isDisabled: !isDisabled });
+      setIsDisabled(!isDisabled);
+      toast.success(!isDisabled ? "هشدار غیرفعال شد" : "هشدار فعال شد");
+    } catch {
+      toast.error("خطا در تغییر وضعیت هشدار");
+    }
   };
 
   const additionalDetails = [
@@ -88,10 +104,22 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
   ];
 
   return (
-    <div className={`alarm-card ${isExpanded ? "expanded" : ""}`} onClick={toggleExpand}>
+    <div
+      className={`alarm-card ${isExpanded ? "expanded" : ""} ${isDisabled ? "alarm-card-disabled" : ""}`}
+      onClick={toggleExpand}
+    >
       <div className="alarm-card-header">
         {/* Action Icons - Upper Left (visually top-right in RTL) */}
         <div className="alarm-card-actions">
+          <button
+            onClick={handleToggleDisabled}
+            className={`action-icon-button toggle-disable-button`}
+            aria-label={isDisabled ? "فعال‌سازی هشدار" : "غیرفعال‌سازی هشدار"}
+            title={isDisabled ? "فعال‌سازی هشدار" : "غیرفعال‌سازی هشدار"}
+            style={{ marginRight: 8 }}
+          >
+            {isDisabled ? <MdToggleOff size={22} color="#d32f2f" /> : <MdToggleOn size={22} color="#388e3c" />}
+          </button>
           <button onClick={handleEdit} className="action-icon-button edit-button" aria-label="ویرایش هشدار">
             <MdEdit />
           </button>
@@ -107,7 +135,7 @@ const AlarmCard = ({ alarm, onDeleteAlarm }) => {
             {isExpanded ? <MdExpandLess /> : <MdExpandMore />}
           </button>
         </div>
-        <h3>{alarmName}</h3>
+        <h3>{alarm.name ? alarm.name : alarmName}</h3>
       </div>
       <div className="alarm-card-body">
         <div className="alarm-detail-item">

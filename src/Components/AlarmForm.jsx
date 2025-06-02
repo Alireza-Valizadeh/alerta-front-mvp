@@ -56,6 +56,9 @@ const AlarmForm = ({ existingAlarmData }) => {
   const [bodyStates, setBodyStates] = useState([]);
   const [gearboxes, setGearboxes] = useState([]);
 
+  const [name, setName] = useState(existingAlarmData?.name || "");
+  const [isDisabled, setIsDisabled] = useState(existingAlarmData?.isDisabled || false);
+
   const isEditMode = !!existingAlarmData;
 
   useEffect(() => {
@@ -184,6 +187,8 @@ const AlarmForm = ({ existingAlarmData }) => {
       engineStateIds: selectedEngineStates.map((item) => item.value),
       bodyStateIds: selectedBodyStates.map((item) => item.value),
       gearboxIds: selectedGearboxes.map((item) => item.value),
+      name: name.trim(),
+      isDisabled,
     };
 
     if (isEditMode && existingAlarmData?.id) {
@@ -234,13 +239,26 @@ const AlarmForm = ({ existingAlarmData }) => {
 
   return (
     <form className="alarm-form" onSubmit={handleSubmit}>
-      <label>استان</label>
+      <label>نام هشدار</label>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="نام هشدار"
+        className="alarm-input"
+        style={{ marginBottom: 12 }}
+      />
+      <label>
+        استان <span style={{ color: "red" }}>*</span>
+      </label>
       <Select options={states} value={state} onChange={setState} placeholder="انتخاب استان" {...selectProps} />
 
       <label>شهر</label>
       <Select options={cities} value={city} onChange={setCity} placeholder="انتخاب شهر" {...selectProps} />
 
-      <label>برند</label>
+      <label>
+        برند <span style={{ color: "red" }}>*</span>
+      </label>
       <Select options={makes} value={make} onChange={setMake} placeholder="انتخاب برند" {...selectProps} />
 
       <label>مدل</label>
@@ -251,7 +269,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={hardcodedPrices}
         value={minPrice}
         onChange={setMinPrice}
-        placeholder="مثلاً ۵۰ میلیون"
+        placeholder="حداقل قیمت"
         {...selectProps}
       />
 
@@ -260,7 +278,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={filteredMaxPrices}
         value={maxPrice}
         onChange={setMaxPrice}
-        placeholder="مثلاً ۵۰۰ میلیون"
+        placeholder="حداکثر قیمت"
         {...selectProps}
       />
 
@@ -269,7 +287,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={hardcodedYears}
         value={minYear}
         onChange={setMinYear}
-        placeholder="مثلاً ۱۳۹۵"
+        placeholder="حداقل سال"
         {...selectProps}
       />
 
@@ -278,7 +296,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={filteredMaxYears}
         value={maxYear}
         onChange={setMaxYear}
-        placeholder="مثلاً ۱۴۰۳"
+        placeholder="حداکثر سال"
         {...selectProps}
       />
 
@@ -287,7 +305,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={hardcodedMileage}
         value={minMileage}
         onChange={setMinMileage}
-        placeholder="مثلاً ۵۰,۰۰۰"
+        placeholder="حداقل کارکرد"
         {...selectProps}
       />
 
@@ -296,7 +314,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={filteredMaxMileage}
         value={maxMileage}
         onChange={setMaxMileage}
-        placeholder="مثلاً ۲۰۰,۰۰۰"
+        placeholder="حداکثر کارکرد"
         {...selectProps}
       />
 
@@ -316,7 +334,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={fuelTypes}
         value={selectedFuelTypes}
         onChange={setSelectedFuelTypes}
-        placeholder="نوع سوخت"
+        placeholder="انتخاب نوع سوخت"
         {...selectProps}
       />
 
@@ -326,7 +344,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={chassisStates}
         value={selectedChassisStates}
         onChange={setSelectedChassisStates}
-        placeholder="وضعیت شاسی"
+        placeholder="انتخاب وضعیت شاسی"
         {...selectProps}
       />
 
@@ -336,7 +354,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={engineStates}
         value={selectedEngineStates}
         onChange={setSelectedEngineStates}
-        placeholder="وضعیت موتور"
+        placeholder="انتخاب وضعیت موتور"
         {...selectProps}
       />
 
@@ -346,7 +364,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={bodyStates}
         value={selectedBodyStates}
         onChange={setSelectedBodyStates}
-        placeholder="وضعیت بدنه"
+        placeholder="انتخاب وضعیت بدنه"
         {...selectProps}
       />
 
@@ -356,7 +374,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={gearboxes}
         value={selectedGearboxes}
         onChange={setSelectedGearboxes}
-        placeholder="گیربکس"
+        placeholder="انتخاب گیربکس"
         {...selectProps}
       />
 
@@ -365,7 +383,7 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={hardcodedDurations}
         value={minInsuranceDuration}
         onChange={setMinInsuranceDuration}
-        placeholder="مثلاً ۱ ماه"
+        placeholder="حداقل مدت بیمه"
         {...selectProps}
       />
 
@@ -374,9 +392,18 @@ const AlarmForm = ({ existingAlarmData }) => {
         options={filteredMaxDurations}
         value={maxInsuranceDuration}
         onChange={setMaxInsuranceDuration}
-        placeholder="مثلاً ۱۲ ماه"
+        placeholder="حداکثر مدت بیمه"
         {...selectProps}
       />
+      <label style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+        <input
+          type="checkbox"
+          checked={isDisabled}
+          onChange={(e) => setIsDisabled(e.target.checked)}
+          style={{ width: 18, height: 18 }}
+        />
+        غیرفعال باشد؟
+      </label>
 
       <button type="submit" className="alarm-button">
         {existingAlarmData ? "ویرایش" : "ثبت"}
