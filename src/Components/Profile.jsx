@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 import '../styles/profile.css';
 import logo from '../assets/alerta.jpg';
 import { MdPerson } from "react-icons/md";
+import NotifBox from "./NotifBox";
+import { formatPersianDateTime, formatRelativeTime } from "../utils/formatters";
 
 const Profile = ({ user, onProfileUpdated }) => {
   const [editMode, setEditMode] = useState(false);
@@ -56,6 +58,17 @@ const Profile = ({ user, onProfileUpdated }) => {
     <div className={`profile-minimal-card${editMode ? ' profile-edit-mode' : ''}`} style={{ position: 'relative' }}>
       <div className="profile-minimal-avatar" style={{ marginBottom: editMode ? '0.7rem' : '0.3rem', width:  55, height: 55 , overflow: 'hidden', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <img src={logo} alt="logo" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '100%' }} />
+      </div>
+
+      <div className="profile-summary-row">
+        <div className="profile-summary-col">
+          <div className="profile-summary-label">اعتبار</div>
+          <div className="profile-summary-value profile-balance-amount" style={{ color: user.balance < 0 ? '#e53935' : '#1976d2' }}>{user.balance !== null && user.balance !== undefined ? user.balance.toLocaleString('fa-IR') : '-'} پیامک</div>
+        </div>
+        <div className="profile-summary-col">
+          <div className="profile-summary-label">آخرین اعلان دریافتی</div>
+          <div className="profile-summary-value profile-last-notif-date">{user.lastCreditUpdate ? formatRelativeTime(user.lastCreditUpdate) : '-'}</div>
+        </div>
       </div>
       {!editMode && (
         <div className="profile-name-view" style={{ fontSize: '1.05rem', fontWeight: 600, color: '#222', marginBottom: 0, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
@@ -158,31 +171,7 @@ const Profile = ({ user, onProfileUpdated }) => {
       )}
       {/* Notifications Section */}
       {!editMode && (
-        <div style={{ width: '100%', marginTop: 26, paddingTop: 26, borderTop: '1px solid #eee' }}>
-          <div style={{ fontWeight: 700, fontSize: '1.08rem', color: '#1976d2', marginBottom: 10, textAlign: 'right' }}>
-            اعلان‌های اخیر
-          </div>
-          <div style={{ background: '#fff', borderRadius: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', padding: 12, minHeight: 60 }}>
-            {notifLoading ? (
-              <div style={{ color: '#888', textAlign: 'center', padding: 12 }}>در حال بارگذاری اعلان‌ها...</div>
-            ) : notifError ? (
-              <div style={{ color: '#d32f2f', textAlign: 'center', padding: 12 }}>{notifError}</div>
-            ) : notifications && notifications.length > 0 ? (
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                {notifications.map((notif, idx) => (
-                  <li key={notif.id || idx} style={{ borderBottom: idx !== notifications.length - 1 ? '1px solid #f0f0f0' : 'none', padding: '10px 0' }}>
-                    <div style={{ fontWeight: 500, color: '#222', fontSize: '0.98rem' }}>{notif.text || notif.message || '-'}</div>
-                    {notif.date && (
-                      <div style={{ color: '#888', fontSize: '0.92rem', marginTop: 2 }}>{notif.date}</div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div style={{ color: '#888', textAlign: 'center', padding: 12 }}>اعلان جدیدی وجود ندارد.</div>
-            )}
-          </div>
-        </div>
+        <NotifBox notifications={notifications} loading={notifLoading} error={notifError} />
       )}
     </div>
   );

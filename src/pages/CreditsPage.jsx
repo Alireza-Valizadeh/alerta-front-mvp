@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AppBar from "../Components/AppBar";
 import BottomNav from "../Components/BottomNav";
 import { getUserTransactions } from "../services/api";
+import { formatPersianDateTime } from "../utils/formatters";
 import toast from "react-hot-toast";
 import "../styles/CreditsPage.css";
 
@@ -57,7 +58,7 @@ const CreditsPage = () => {
                   </div>
                   <div className="credits-transaction-row credits-transaction-desc-row">
                     <span className="credits-transaction-desc">{tx.description || "-"}</span>
-                    <span className="credits-transaction-date">{new Date(tx.createdAt).toLocaleDateString("fa-IR", { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                    <span className="credits-transaction-date">{tx.createdAt ? formatPersianDateTime(tx.createdAt) : "-"}</span>
                   </div>
                   <div className={`credits-transaction-balance-after ${Number(tx.balanceAfter) > 0 ? 'positive' : Number(tx.balanceAfter) < 0 ? 'negative' : ''}`}>موجودی پس از تراکنش: {Math.abs(tx.balanceAfter).toLocaleString()} پیامک</div>
                 </div>

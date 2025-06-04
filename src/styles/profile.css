@@ -122,3 +122,45 @@
     height: 44px;
   }
 }
+
+.profile-summary-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+  background: none;
+}
+
+.profile-summary-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.5rem;
+  background: none;
+}
+
+.profile-summary-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1976d2;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.profile-summary-value.negative {
+  color: #e53935;
+}
+
+.profile-summary-label {
+  font-size: 0.97rem;
+  color: #888;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 0.1rem;
+}

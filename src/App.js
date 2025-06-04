@@ -15,6 +15,7 @@ import CreditsPage from './pages/CreditsPage';
 import LoadingPage from './pages/LoadingPage';
 import AboutPage from './pages/AboutPage';
 import PrivacyPage from './pages/PrivacyPage';
+import NotificationsPage from './pages/NotificationsPage';
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
             <Route path="profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
             <Route path="settings" element={<PrivateRoute><SettingsPage /></PrivateRoute>} />
             <Route path="credits" element={<PrivateRoute><CreditsPage /></PrivateRoute>} />
+            <Route path="notifications" element={<PrivateRoute><NotificationsPage /></PrivateRoute>} />
           </Routes>
         } />
       </Routes>
