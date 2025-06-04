@@ -52,3 +52,11 @@ export function formatRelativeTime(dateInput) {
   // For longer, show date
   return formatPersianDateTime(dateInput);
 }
+
+export function toPersianNumberWithSign(num) {
+  if (typeof num !== 'number') num = Number(num);
+  if (isNaN(num)) return '-';
+  const abs = Math.abs(num);
+  const persian = toPersianDigits(abs);
+  return num < 0 ? persian + '-' : persian; // Use U+2212 for minus
+}

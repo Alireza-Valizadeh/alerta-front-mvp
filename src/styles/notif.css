@@ -37,14 +37,14 @@
 
 .notif-card {
   background: #f9fbfd;
-  border-radius: 12px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
   padding: 1rem 1rem 0.7rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
   position: relative;
-  border-right: 4px solid #1976d2;
+  border-right: 2px solid #1976d2;
 }
 
 .notif-card-row {

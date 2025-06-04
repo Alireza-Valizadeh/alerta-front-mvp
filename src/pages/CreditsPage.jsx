@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import AppBar from "../Components/AppBar";
 import BottomNav from "../Components/BottomNav";
 import { getUserTransactions } from "../services/api";
-import { formatPersianDateTime } from "../utils/formatters";
+import { formatPersianDateTime, toPersianNumberWithSign } from "../utils/formatters";
 import toast from "react-hot-toast";
 import "../styles/CreditsPage.css";
 
 const transactionTypeLabels = {
-  PURCHASE: "خرید پیامک",
-  USAGE: "ارسال پیامک",
-  BONUS: "پیامک هدیه",
-  REFUND: "بازگشت پیامک",
+  PURCHASE: "خرید اعتبار",
+  USAGE: "هزینه ارسال",
+  BONUS: "اعتبار هدیه",
+  REFUND: "بازگشت اعتبار",
   ADJUSTMENT: "تغییر دستی ادمین",
 };
 
@@ -37,8 +37,10 @@ const CreditsPage = () => {
       <AppBar />
       <main className="credits-page-content">
         <div className="credits-balance-card">
-          <div className="credits-balance-label">موجودی پیامک</div>
-          <div className={`credits-balance-amount${balance < 0 ? ' negative' : ''}`}>{Math.abs(balance).toLocaleString()} پیامک</div>
+          <div className="credits-balance-label">اعتبار</div>
+          <div className={`credits-balance-amount${balance < 0 ? " negative" : ""}`}>
+            {toPersianNumberWithSign(balance)} پیامک
+          </div>
         </div>
         <div className="credits-transactions-section">
           <div className="credits-transactions-header">
@@ -53,14 +55,27 @@ const CreditsPage = () => {
               {transactions.map((tx) => (
                 <div className="credits-transaction-card" key={tx.id}>
                   <div className="credits-transaction-row">
-                    <span className={`credits-transaction-amount ${tx.amount > 0 ? "positive" : "negative"}`}>{Math.abs(tx.amount).toLocaleString()} پیامک</span>
-                    <span className={`credits-transaction-type ${tx.amount > 0 ? "positive" : "negative"}`}>{transactionTypeLabels[tx.type] || tx.type}</span>
+                    <span className={`credits-transaction-amount ${tx.amount > 0 ? "positive" : "negative"}`}>
+                      {" "}
+                      {toPersianNumberWithSign(tx.amount)} پیامک
+                    </span>
+                    <span className={`credits-transaction-type ${tx.amount > 0 ? "positive" : "negative"}`}>
+                      {transactionTypeLabels[tx.type] || tx.type}
+                    </span>
                   </div>
                   <div className="credits-transaction-row credits-transaction-desc-row">
                     <span className="credits-transaction-desc">{tx.description || "-"}</span>
-                    <span className="credits-transaction-date">{tx.createdAt ? formatPersianDateTime(tx.createdAt) : "-"}</span>
+                    <span className="credits-transaction-date">
+                      {tx.createdAt ? formatPersianDateTime(tx.createdAt) : "-"}
+                    </span>
                   </div>
-                  <div className={`credits-transaction-balance-after ${Number(tx.balanceAfter) > 0 ? 'positive' : Number(tx.balanceAfter) < 0 ? 'negative' : ''}`}>موجودی پس از تراکنش: {Math.abs(tx.balanceAfter).toLocaleString()} پیامک</div>
+                  <div
+                    className={`credits-transaction-balance-after ${
+                      Number(tx.balanceAfter) > 0 ? "positive" : Number(tx.balanceAfter) < 0 ? "negative" : ""
+                    }`}
+                  >
+                    موجودی پس از تراکنش: {toPersianNumberWithSign(tx.balanceAfter)} پیامک
+                  </div>
                 </div>
               ))}
             </div>
@@ -72,4 +87,4 @@ const CreditsPage = () => {
   );
 };
 
-export default CreditsPage; 
+export default CreditsPage;
