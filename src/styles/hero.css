@@ -71,7 +71,7 @@
     max-width: 450px;
     /* Limit width of search input */
     direction: rtl;
-    font-family: 'Vazir', sans-serif;
+    font-family: 'Vazirmatn', 'Vazir', Tahoma, Arial, sans-serif;
 }
 
 .hero-search-input:focus {

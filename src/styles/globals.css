@@ -11,7 +11,7 @@
 
 /* Body */
 body {
-    font-family: 'Vazir', sans-serif;
+    font-family: 'Vazirmatn', 'Vazir', Tahoma, Arial, sans-serif;
     background-color: var(--color-secondary);
     color: var(--color-text);
     direction: rtl;
@@ -367,7 +367,7 @@ header {
     display: flex;
     justify-content: center;
     direction: rtl;
-    font-family: "Vazir", sans-serif;
+    font-family: 'Vazirmatn', 'Vazir', Tahoma, Arial, sans-serif;
 }
 
 .profile-card {
@@ -378,6 +378,7 @@ header {
     max-width: 500px;
     width: 100%;
     text-align: right;
+    font-family: 'Vazirmatn', 'Vazir', Tahoma, Arial, sans-serif;
 }
 
 .profile-header {

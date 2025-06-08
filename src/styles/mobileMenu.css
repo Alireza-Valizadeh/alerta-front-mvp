@@ -42,7 +42,7 @@
     flex-direction: column;
     direction: rtl;
     /* Ensure content inside is RTL */
-    font-family: 'Vazir', sans-serif;
+    font-family: 'Vazirmatn', 'Vazir', Tahoma, Arial, sans-serif;
 }
 
 .mobile-menu.open {

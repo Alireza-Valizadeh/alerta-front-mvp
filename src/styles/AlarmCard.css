@@ -7,7 +7,7 @@
   padding: 1.5rem;
   direction: rtl;
   /* Ensures RTL layout for the card content */
-  font-family: "Vazir", sans-serif;
+  font-family: 'Vazirmatn', 'Vazir', Tahoma, Arial, sans-serif;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   display: flex;
   flex-direction: column;

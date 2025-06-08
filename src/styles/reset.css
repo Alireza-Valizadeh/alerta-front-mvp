@@ -38,7 +38,7 @@ ol {
 
 /* Set default font and text color */
 body {
-    font-family: sans-serif;
+    font-family: 'Vazirmatn', 'Vazir', Tahoma, Arial, sans-serif;
     color: var(--color-text);
     line-height: 1.5;
 }
