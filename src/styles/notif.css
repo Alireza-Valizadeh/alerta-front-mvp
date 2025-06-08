@@ -1,5 +1,5 @@
 .notif-box {
-  background: #fff;
+  background: var(--color-bg);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   padding: 1.2rem 1rem 1.2rem 1rem;
@@ -14,7 +14,7 @@
 
 .notif-box-header {
   font-size: 1.1rem;
-  color: #1976d2;
+  color: var(--color-primary);
   font-weight: 700;
   margin-bottom: 1rem;
   text-align: right;
@@ -30,13 +30,13 @@
 .notif-box-error,
 .notif-box-empty {
   text-align: center;
-  color: #888;
+  color: var(--color-muted);
   padding: 1.5rem 0;
   font-size: 1.05rem;
 }
 
 .notif-card {
-  background: #f9fbfd;
+  background: var(--color-card-bg);
   border-radius: 10px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
   padding: 1rem 1rem 0.7rem 1rem;
@@ -44,7 +44,7 @@
   flex-direction: column;
   gap: 0.4rem;
   position: relative;
-  border-right: 2px solid #1976d2;
+  border-right: 2px solid var(--color-primary);
 }
 
 .notif-card-row {
@@ -57,7 +57,7 @@
 .notif-card-title {
   font-size: 1.05rem;
   font-weight: 100;
-  color: #222;
+  color: var(--color-text);
   flex: 1;
   white-space: nowrap;
   overflow: hidden;
@@ -65,8 +65,8 @@
 }
 
 .notif-card-link {
-  color: #1976d2;
-  background: #e3f0ff;
+  color: var(--color-primary);
+  background: var(--color-secondary);
   border-radius: 8px;
   padding: 0.2rem 0.7rem;
   font-size: 0.97rem;
@@ -75,19 +75,19 @@
 }
 
 .notif-card-link:hover {
-  background: #1976d2;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-bg);
 }
 
 .notif-card-date-row {
   font-size: 0.93rem;
-  color: #888;
+  color: var(--color-muted);
   margin-top: 0.2rem;
   justify-content: flex-end;
 }
 
 .notif-card-date {
-  color: #888;
+  color: var(--color-muted);
   font-size: 0.93rem;
   white-space: nowrap;
 }

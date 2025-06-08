@@ -20,7 +20,7 @@
 .navbar-brand a {
     font-size: 1.75rem;
     font-weight: 700;
-    color: #0056d2;
+    color: var(--color-primary);
     /* Using a color from your button */
     text-decoration: none;
 }
@@ -35,18 +35,18 @@
 
 .navbar-nav a {
     text-decoration: none;
-    color: #0a2540;
+    color: var(--color-primary);
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .navbar-nav a:hover {
-    color: #007bff;
+    color: var(--color-accent);
 }
 
 .navbar-cta {
-    background-color: #007bff;
-    color: #fff !important;
+    background-color: var(--color-primary);
+    color: var(--color-bg) !important;
     /* Important to override default link color */
     padding: 0.5rem 1.2rem;
     border-radius: 8px;
@@ -55,7 +55,7 @@
 }
 
 .navbar-cta:hover {
-    background-color: #0056d2;
+    background-color: var(--color-accent);
     transform: translateY(-2px);
 }
 
@@ -100,12 +100,12 @@
     padding: 0.5rem;
     display: none;
     /* Hidden by default, shown in media query */
-    color: #0056d2;
+    color: var(--color-primary);
     /* Or your preferred icon color */
 }
 
 .hamburger-button:hover {
-    color: #003d99;
+    color: var(--color-accent);
 }
 
 /* Responsive adjustments */
@@ -189,7 +189,7 @@
     font-size: 1.5rem;
     /* Slightly adjusted for balance */
     font-weight: 700;
-    color: #0056d2;
+    color: var(--color-primary);
     text-decoration: none;
 }
 
@@ -204,7 +204,7 @@
 
 .navbar-nav a {
     text-decoration: none;
-    color: #0a2540;
+    color: var(--color-primary);
     font-weight: 500;
     transition: color 0.3s ease;
     /* padding: 0.25rem 0; */
@@ -212,12 +212,12 @@
 }
 
 .navbar-nav a:hover {
-    color: #007bff;
+    color: var(--color-accent);
 }
 
 .navbar-cta {
-    background-color: #007bff;
-    color: #fff !important;
+    background-color: var(--color-primary);
+    color: var(--color-bg) !important;
     padding: 0.5rem 1.2rem;
     border-radius: 8px;
     font-weight: 600;
@@ -225,6 +225,6 @@
 }
 
 .navbar-cta:hover {
-    background-color: #0056d2;
+    background-color: var(--color-accent);
     transform: translateY(-2px);
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './styles/index.css';
 import './assets/vazir-font.css'
 import './styles/reset.css';
 import './styles/globals.css';

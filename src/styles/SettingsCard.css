@@ -1,0 +1,30 @@
+.settings-card {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 1.2rem;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.settings-card-icon {
+  margin-right: 1.2rem;
+  color: var(--color-primary);
+}
+
+.settings-card-content {
+  margin-right: 1.2rem;
+}
+
+.settings-card-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.settings-card-description {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+} 

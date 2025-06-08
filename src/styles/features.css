@@ -1,7 +1,7 @@
 /* src/components/Features.css */
 .features-section {
     padding: 4rem 2rem;
-    background-color: #e6f0ff;
+    background-color: var(--color-secondary);
     /* Using your body background */
     direction: rtl;
 }
@@ -10,7 +10,7 @@
     text-align: center;
     font-size: 2.2rem;
     font-weight: 700;
-    color: #0a2540;
+    color: var(--color-primary);
     margin-bottom: 3rem;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .feature-item {
-    background-color: #fff;
+    background-color: var(--color-bg);
     padding: 1.8rem;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
@@ -39,7 +39,7 @@
 .feature-icon {
     font-size: 2rem;
     /* Adjust if using actual icons */
-    color: #007bff;
+    color: var(--color-primary);
     margin-bottom: 1rem;
     display: block;
     /* Make it block to appear above title */
@@ -48,8 +48,7 @@
 .feature-icon span {
     /* If using a span for placeholder */
     display: inline-block;
-    background-color: #007bff1a;
-    /* Light background for icon placeholder */
+    background-color: var(--color-secondary);
     padding: 0.5rem;
     border-radius: 50%;
     width: 50px;
@@ -57,19 +56,20 @@
     line-height: 30px;
     /* Adjust for vertical centering of char */
     text-align: center;
+    color: var(--color-primary);
 }
 
 
 .feature-item h3 {
     font-size: 1.3rem;
     font-weight: 600;
-    color: #003366;
+    color: var(--color-primary);
     margin-bottom: 0.75rem;
 }
 
 .feature-item p {
     font-size: 0.9rem;
-    color: #333;
+    color: var(--color-text);
     line-height: 1.6;
 }
 

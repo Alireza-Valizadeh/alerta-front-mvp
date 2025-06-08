@@ -39,7 +39,7 @@ ol {
 /* Set default font and text color */
 body {
     font-family: sans-serif;
-    color: #333;
+    color: var(--color-text);
     line-height: 1.5;
 }
 

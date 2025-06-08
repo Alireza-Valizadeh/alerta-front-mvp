@@ -1,9 +1,8 @@
 /* src/components/CTA.css */
 .cta-section {
     padding: 4rem 2rem;
-    background-color: #0056d2;
-    /* Darker blue from your button gradient */
-    color: #fff;
+    background-color: var(--color-primary);
+    color: var(--color-bg);
     text-align: center;
     direction: rtl;
 }
@@ -12,8 +11,7 @@
     font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: #fff;
-    /* Ensure heading color is white */
+    color: var(--color-bg);
 }
 
 .cta-content p {
@@ -23,15 +21,13 @@
     margin-left: auto;
     margin-right: auto;
     line-height: 1.7;
-    color: #e0e0e0;
-    /* Lighter text for contrast */
+    color: var(--color-muted);
 }
 
 .cta-button {
     padding: 0.9rem 2.5rem;
-    background-color: #fff;
-    color: #0056d2;
-    /* Button text color */
+    background-color: var(--color-bg);
+    color: var(--color-primary);
     border: none;
     border-radius: 8px;
     font-size: 1.15rem;
@@ -42,9 +38,8 @@
 }
 
 .cta-button:hover {
-    background-color: #e6f0ff;
-    /* Light blue on hover */
-    color: #004aad;
+    background-color: var(--color-secondary);
+    color: var(--color-accent);
     transform: translateY(-3px);
 }
 

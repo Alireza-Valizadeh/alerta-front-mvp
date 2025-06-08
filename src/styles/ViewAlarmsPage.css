@@ -15,16 +15,17 @@
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid #dee2e6;
+    color: var(--color-text);
 }
 
 .view-alarms-header h1 {
     font-size: 1.8rem;
-    color: #0a2540;
+    color: var(--color-primary);
     margin: 0;
 }
 
 .create-alarm-button {
-    background-image: linear-gradient(to right, #007bff, #0056d2);
+    background-image: linear-gradient(to right, var(--color-primary), #0056d2);
     color: white;
     border: none;
     padding: 0.7rem 1.3rem;

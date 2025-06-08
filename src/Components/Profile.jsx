@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { FiUser, } from "react-icons/fi";
 import { FaEdit, FaSave, } from "react-icons/fa";
 import { updateUserProfile, getUserNotifications } from "../services/api";
 import toast from "react-hot-toast";
@@ -7,7 +6,7 @@ import '../styles/profile.css';
 import logo from '../assets/alerta.jpg';
 import { MdPerson } from "react-icons/md";
 import NotifBox from "./NotifBox";
-import { formatPersianDateTime, formatRelativeTime } from "../utils/formatters";
+import { formatRelativeTime } from "../utils/formatters";
 
 const Profile = ({ user, onProfileUpdated }) => {
   const [editMode, setEditMode] = useState(false);
@@ -76,8 +75,8 @@ const Profile = ({ user, onProfileUpdated }) => {
             className="btn"
             onClick={handleEdit}
           >
-            <span style={{ fontFamily: 'Tahoma, Arial, Roboto, sans-serif', fontWeight: 700, fontSize: '1.08rem' }}>{user.firstName || "-"} ({user.phone || "-"})</span>
-            {user.email && <><br /> <br/> <span style={{ fontFamily: 'Tahoma, Arial, Roboto, sans-serif', fontWeight: 400, fontSize: '1.01rem', color: '#555' }}>{user.email || "-"}</span></> }
+            <span style={{ fontWeight: 700, fontSize: '1.08rem' }}>{user.firstName || "-"} ({user.phone || "-"})</span>
+            {/* {user.email && <><br /> <br/> <span style={{ fontFamily: 'Tahoma, Arial, Roboto, sans-serif', fontWeight: 400, fontSize: '1.01rem', color: '#555' }}>{user.email || "-"}</span></> } */}
           </button>
           {/* <button
             onClick={handleEdit}
@@ -153,7 +152,7 @@ const Profile = ({ user, onProfileUpdated }) => {
               style={{
                 flex: 1,
                 background: "#ffeaea",
-                color: "#d32f2f",
+                color: "var(--color-error)",
                 border: "none",
                 borderRadius: 8,
                 fontWeight: 600,

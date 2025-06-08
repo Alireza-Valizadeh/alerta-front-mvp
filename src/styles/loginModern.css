@@ -97,13 +97,13 @@
   font-size: 1.08rem;
   font-family: inherit;
   background: #f7fafd;
-  color: #222;
+  color: var(--color-text);
   transition: border-color 0.2s;
   outline: none;
   direction: ltr;
 }
 .login-modern-input:focus {
-  border-color: #007bff;
+  border-color: var(--color-primary);
   background: #fff;
 }
 
@@ -115,8 +115,8 @@
 .login-modern-btn {
   width: 100%;
   padding: 1rem 0;
-  background: linear-gradient(90deg, #007bff 60%, #0056d2 100%);
-  color: #fff;
+  background: linear-gradient(90deg, var(--color-primary) 60%, #0056d2 100%);
+  color: var(--color-bg);
   font-size: 1.1rem;
   font-weight: 700;
   border: none;
@@ -127,7 +127,7 @@
   transition: background 0.2s, box-shadow 0.2s;
 }
 .login-modern-btn:active {
-  background: linear-gradient(90deg, #0056d2 60%, #007bff 100%);
+  background: linear-gradient(90deg, #0056d2 60%, var(--color-primary) 100%);
   box-shadow: 0 4px 16px rgba(0,123,255,0.16);
 }
 

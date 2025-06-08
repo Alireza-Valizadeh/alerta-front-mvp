@@ -60,11 +60,9 @@
 }
 
 .action-icon-button {
-  background-color: #f0f4f8;
-  /* Default light background */
-  border: 1px solid #dfe6ed;
-  color: #4a5568;
-  /* Default icon color (greyish) */
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+  color: var(--color-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -79,55 +77,43 @@
 }
 
 .action-icon-button:hover {
-  background-color: #e2e8f0;
-  /* Slightly darker on hover */
-  color: #2d3748;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
 /* Specific styles for each button type */
 
 .action-icon-button.expand-button {
-  color: #007bff;
-  /* Blue for expand/collapse icon */
-  background-color: #e6f2ff;
-  /* Light blue background */
-  border-color: #cce0ff;
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
 }
 
 .action-icon-button.expand-button:hover {
-  background-color: #cce0ff;
-  color: #0056b3;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
 }
 
 .action-icon-button.edit-button {
-  color: #28a745;
-  /* Green for edit icon */
-  background-color: #eaf6ec;
-  /* Light green background */
-  border-color: #b8e0be;
+  color: var(--color-accent);
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
 }
 
 .action-icon-button.edit-button:hover {
-  background-color: #c3e6cb;
-  /* Darker green background on hover */
-  color: #1e7e34;
-  /* Darker green icon on hover */
+  background-color: var(--color-secondary);
+  color: var(--color-accent);
 }
 
 .action-icon-button.delete-button {
-  color: #dc3545;
-  /* Red for delete icon */
+  color: var(--color-error);
   background-color: #fdecea;
-  /* Light red background */
   border-color: #f5c6cb;
 }
 
 .action-icon-button.delete-button:hover {
   background-color: #f8d7da;
-  /* Darker red background on hover */
-  color: #c82333;
-  /* Darker red icon on hover */
+  color: var(--color-error);
 }
 
 .alarm-card-body {
@@ -140,7 +126,7 @@
   gap: 0.75rem;
   margin-bottom: 0.8rem;
   font-size: 0.95rem;
-  color: #343a40;
+  color: var(--color-text);
 }
 
 .alarm-detail-label {

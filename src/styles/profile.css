@@ -1,5 +1,5 @@
 .profile-minimal-card {
-  /* background: #fafbfc; */
+  /* background: var(--color-bg); */
   border-radius: 14px;
   /* border: 1px solid #e0e0e0; */
   width: 100%;
@@ -26,7 +26,7 @@
   font-weight: 500;
   font-size: 0.98rem;
   margin-bottom: 0.3rem;
-  color: #444;
+  color: var(--color-text);
   display: block;
 }
 
@@ -35,7 +35,7 @@
   border-radius: 7px;
   border: 1px solid #d0d0d0;
   font-size: 1rem;
-  background: #fff;
+  background: var(--color-bg);
   transition: border 0.2s;
   width: 100%;
   margin-bottom: 14px;
@@ -79,8 +79,8 @@
 
 .profile-btn-outline {
   border: 1.5px solid #bdbdbd;
-  color: #444;
-  background: #fff;
+  color: var(--color-text);
+  background: var(--color-bg);
 }
 
 .profile-btn-outline:active,
@@ -90,14 +90,14 @@
 }
 
 .profile-btn-text-red {
-  color: #d32f2f;
+  color: var(--color-error);
   background: none;
   border: none;
 }
 
 .profile-btn-text-red:active,
 .profile-btn-text-red:focus {
-  color: #b71c1c;
+  color: var(--color-error);
 }
 
 .profile-field-group {

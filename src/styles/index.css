@@ -1,0 +1,15 @@
+:root {
+  --color-primary: #1976d2;
+  /* Blue */
+  --color-secondary: #e3f0ff;
+  /* Light blue background */
+  --color-accent: #00bcd4;
+  /* Cyan accent */
+  --color-error: #da7977;
+  /* Red for errors/toasts */
+  --color-text: #666;
+  --color-muted: #55646b;
+  /* Blue-gray for muted text */
+  --color-bg: #fff;
+  --color-card-bg: #f9fbfd;
+}
