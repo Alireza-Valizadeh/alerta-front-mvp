@@ -4,6 +4,7 @@ import { createAlarm, getAlarmCreationData, getMakeModels, getStateCities, updat
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { hardcodedDurations, hardcodedMileage, hardcodedPrices, hardcodedYears } from "./constants";
+import { MdExpandLess, MdExpandMore } from "react-icons/md";
 
 const mapItemsFromAPI = (items) => {
   if (!items) return [];
@@ -60,6 +61,11 @@ const AlarmForm = ({ existingAlarmData }) => {
   const [isDisabled, setIsDisabled] = useState(existingAlarmData?.isDisabled || false);
 
   const isEditMode = !!existingAlarmData;
+
+  // Section open/close state
+  const [openMain, setOpenMain] = useState(true);
+  const [openGeneral, setOpenGeneral] = useState(false);
+  const [openAdvanced, setOpenAdvanced] = useState(false);
 
   useEffect(() => {
     getAlarmCreationData().then((data) => {
@@ -239,173 +245,229 @@ const AlarmForm = ({ existingAlarmData }) => {
 
   return (
     <form className="alarm-form" onSubmit={handleSubmit}>
-      <label>نام هشدار</label>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="نام هشدار"
-        className="alarm-input"
-        style={{ marginBottom: 12 }}
-      />
-      <label>
-        استان <span style={{ color: "red" }}>*</span>
-      </label>
-      <Select options={states} value={state} onChange={setState} placeholder="انتخاب استان" {...selectProps} />
-
-      <label>شهر</label>
-      <Select options={cities} value={city} onChange={setCity} placeholder="انتخاب شهر" {...selectProps} />
-
-      <label>
-        برند <span style={{ color: "red" }}>*</span>
-      </label>
-      <Select options={makes} value={make} onChange={setMake} placeholder="انتخاب برند" {...selectProps} />
-
-      <label>مدل</label>
-      <Select options={models} value={model} onChange={setModel} placeholder="انتخاب مدل" {...selectProps} />
-
-      <label>حداقل قیمت</label>
-      <Select
-        options={hardcodedPrices}
-        value={minPrice}
-        onChange={setMinPrice}
-        placeholder="حداقل قیمت"
-        {...selectProps}
-      />
-
-      <label>حداکثر قیمت</label>
-      <Select
-        options={filteredMaxPrices}
-        value={maxPrice}
-        onChange={setMaxPrice}
-        placeholder="حداکثر قیمت"
-        {...selectProps}
-      />
-
-      <label>حداقل سال</label>
-      <Select
-        options={hardcodedYears}
-        value={minYear}
-        onChange={setMinYear}
-        placeholder="حداقل سال"
-        {...selectProps}
-      />
-
-      <label>حداکثر سال</label>
-      <Select
-        options={filteredMaxYears}
-        value={maxYear}
-        onChange={setMaxYear}
-        placeholder="حداکثر سال"
-        {...selectProps}
-      />
-
-      <label>حداقل کارکرد</label>
-      <Select
-        options={hardcodedMileage}
-        value={minMileage}
-        onChange={setMinMileage}
-        placeholder="حداقل کارکرد"
-        {...selectProps}
-      />
-
-      <label>حداکثر کارکرد</label>
-      <Select
-        options={filteredMaxMileage}
-        value={maxMileage}
-        onChange={setMaxMileage}
-        placeholder="حداکثر کارکرد"
-        {...selectProps}
-      />
-
-      <label>رنگ بدنه</label>
-      <Select
-        isMulti
-        options={colors}
-        value={selectedColors}
-        onChange={setSelectedColors}
-        placeholder="انتخاب رنگ"
-        {...selectProps}
-      />
-
-      <label>نوع سوخت</label>
-      <Select
-        isMulti
-        options={fuelTypes}
-        value={selectedFuelTypes}
-        onChange={setSelectedFuelTypes}
-        placeholder="انتخاب نوع سوخت"
-        {...selectProps}
-      />
-
-      <label>وضعیت شاسی</label>
-      <Select
-        isMulti
-        options={chassisStates}
-        value={selectedChassisStates}
-        onChange={setSelectedChassisStates}
-        placeholder="انتخاب وضعیت شاسی"
-        {...selectProps}
-      />
-
-      <label>وضعیت موتور</label>
-      <Select
-        isMulti
-        options={engineStates}
-        value={selectedEngineStates}
-        onChange={setSelectedEngineStates}
-        placeholder="انتخاب وضعیت موتور"
-        {...selectProps}
-      />
-
-      <label>وضعیت بدنه</label>
-      <Select
-        isMulti
-        options={bodyStates}
-        value={selectedBodyStates}
-        onChange={setSelectedBodyStates}
-        placeholder="انتخاب وضعیت بدنه"
-        {...selectProps}
-      />
-
-      <label>گیربکس</label>
-      <Select
-        isMulti
-        options={gearboxes}
-        value={selectedGearboxes}
-        onChange={setSelectedGearboxes}
-        placeholder="انتخاب گیربکس"
-        {...selectProps}
-      />
-
-      <label>حداقل مدت بیمه</label>
-      <Select
-        options={hardcodedDurations}
-        value={minInsuranceDuration}
-        onChange={setMinInsuranceDuration}
-        placeholder="حداقل مدت بیمه"
-        {...selectProps}
-      />
-
-      <label>حداکثر مدت بیمه</label>
-      <Select
-        options={filteredMaxDurations}
-        value={maxInsuranceDuration}
-        onChange={setMaxInsuranceDuration}
-        placeholder="حداکثر مدت بیمه"
-        {...selectProps}
-      />
-      <label style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+      {/* Main Info Section */}
+      <div style={{ borderRadius: 8, border: '1px solid #e0e0e0', marginBottom: 16 }}>
+        <div
+          style={{
+            cursor: "pointer",
+            background: "#f7fafd",
+            padding: "0.5rem 1rem",
+            fontWeight: 700,
+            fontSize: "1rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            minHeight: 36,
+          }}
+          onClick={() => setOpenMain((v) => !v)}
+        >
+           استان، شهر، برند و مدل
+          {openMain ? <MdExpandLess size={22} /> : <MdExpandMore size={22} />}
+        </div>
+        {openMain && (
+          <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 16 }}>
+            <label>
+              استان <span style={{ color: "red" }}>*</span>
+            </label>
+            <Select options={states} value={state} onChange={setState} placeholder="انتخاب استان" {...selectProps} />
+            <label>شهر</label>
+            <Select options={cities} value={city} onChange={setCity} placeholder="انتخاب شهر" {...selectProps} />
+            <label>
+              برند <span style={{ color: "red" }}>*</span>
+            </label>
+            <Select options={makes} value={make} onChange={setMake} placeholder="انتخاب برند" {...selectProps} />
+            <label>مدل</label>
+            <Select options={models} value={model} onChange={setModel} placeholder="انتخاب مدل" {...selectProps} />
+          </div>
+        )}
+      </div>
+      {/* General Info Section */}
+      <div style={{ borderRadius: 8, border: '1px solid #e0e0e0', marginBottom: 16 }}>
+        <div
+          style={{
+            cursor: "pointer",
+            background: "#f7fafd",
+            padding: "0.5rem 1rem",
+            fontWeight: 700,
+            fontSize: "1rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            minHeight: 36,
+          }}
+          onClick={() => setOpenGeneral((v) => !v)}
+        >
+           قیمت، سال تولید، کارکرد و بیمه
+          {openGeneral ? <MdExpandLess size={22} /> : <MdExpandMore size={22} />}
+        </div>
+        {openGeneral && (
+          <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 16 }}>
+            <label>حداقل قیمت</label>
+            <Select
+              options={hardcodedPrices}
+              value={minPrice}
+              onChange={setMinPrice}
+              placeholder="حداقل قیمت"
+              {...selectProps}
+            />
+            <label>حداکثر قیمت</label>
+            <Select
+              options={filteredMaxPrices}
+              value={maxPrice}
+              onChange={setMaxPrice}
+              placeholder="حداکثر قیمت"
+              {...selectProps}
+            />
+            <label>حداقل سال</label>
+            <Select
+              options={hardcodedYears}
+              value={minYear}
+              onChange={setMinYear}
+              placeholder="حداقل سال"
+              {...selectProps}
+            />
+            <label>حداکثر سال</label>
+            <Select
+              options={filteredMaxYears}
+              value={maxYear}
+              onChange={setMaxYear}
+              placeholder="حداکثر سال"
+              {...selectProps}
+            />
+            <label>حداقل کارکرد</label>
+            <Select
+              options={hardcodedMileage}
+              value={minMileage}
+              onChange={setMinMileage}
+              placeholder="حداقل کارکرد"
+              {...selectProps}
+            />
+            <label>حداکثر کارکرد</label>
+            <Select
+              options={filteredMaxMileage}
+              value={maxMileage}
+              onChange={setMaxMileage}
+              placeholder="حداکثر کارکرد"
+              {...selectProps}
+            />
+            <label>حداقل مدت بیمه</label>
+            <Select
+              options={hardcodedDurations}
+              value={minInsuranceDuration}
+              onChange={setMinInsuranceDuration}
+              placeholder="حداقل مدت بیمه"
+              {...selectProps}
+            />
+            <label>حداکثر مدت بیمه</label>
+            <Select
+              options={filteredMaxDurations}
+              value={maxInsuranceDuration}
+              onChange={setMaxInsuranceDuration}
+              placeholder="حداکثر مدت بیمه"
+              {...selectProps}
+            />
+          </div>
+        )}
+      </div>
+      {/* Advanced Details Section */}
+      <div style={{ borderRadius: 8, border: '1px solid #e0e0e0', marginBottom: 16 }}>
+        <div
+          style={{
+            cursor: "pointer",
+            background: "#f7fafd",
+            padding: "0.5rem 1rem",
+            fontWeight: 700,
+            fontSize: "1rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            minHeight: 36,
+          }}
+          onClick={() => setOpenAdvanced((v) => !v)}
+        >
+          جزئیات پیشرفته
+          {openAdvanced ? <MdExpandLess size={22} /> : <MdExpandMore size={22} />}
+        </div>
+        {openAdvanced && (
+          <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 16 }}>
+            <label>رنگ بدنه</label>
+            <Select
+              isMulti
+              options={colors}
+              value={selectedColors}
+              onChange={setSelectedColors}
+              placeholder="انتخاب رنگ"
+              {...selectProps}
+            />
+            <label>نوع سوخت</label>
+            <Select
+              isMulti
+              options={fuelTypes}
+              value={selectedFuelTypes}
+              onChange={setSelectedFuelTypes}
+              placeholder="انتخاب نوع سوخت"
+              {...selectProps}
+            />
+            <label>وضعیت شاسی</label>
+            <Select
+              isMulti
+              options={chassisStates}
+              value={selectedChassisStates}
+              onChange={setSelectedChassisStates}
+              placeholder="انتخاب وضعیت شاسی"
+              {...selectProps}
+            />
+            <label>وضعیت موتور</label>
+            <Select
+              isMulti
+              options={engineStates}
+              value={selectedEngineStates}
+              onChange={setSelectedEngineStates}
+              placeholder="انتخاب وضعیت موتور"
+              {...selectProps}
+            />
+            <label>وضعیت بدنه</label>
+            <Select
+              isMulti
+              options={bodyStates}
+              value={selectedBodyStates}
+              onChange={setSelectedBodyStates}
+              placeholder="انتخاب وضعیت بدنه"
+              {...selectProps}
+            />
+            <label>گیربکس</label>
+            <Select
+              isMulti
+              options={gearboxes}
+              value={selectedGearboxes}
+              onChange={setSelectedGearboxes}
+              placeholder="انتخاب گیربکس"
+              {...selectProps}
+            />
+          </div>
+        )}
+      </div>
+      {/* Alarm Name and Disabled at the bottom */}
+      <div style={{ borderRadius: 8, border: "1px solid #e0e0e0", marginBottom: 16, padding: 16, background: "#fff", display: "flex", flexDirection: "column" }}>
+        <label>نام هشدار</label>
         <input
-          type="checkbox"
-          checked={isDisabled}
-          onChange={(e) => setIsDisabled(e.target.checked)}
-          style={{ width: 18, height: 18 }}
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="نام هشدار"
+          style={{ width: "100%" }}
         />
-        غیرفعال باشد؟
-      </label>
-
-      <button type="submit" className="alarm-button">
+        <label style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 0 }}>
+          <input
+            type="checkbox"
+            checked={isDisabled}
+            onChange={(e) => setIsDisabled(e.target.checked)}
+            style={{ width: 18, height: 18 }}
+          />
+          غیرفعال باشد؟
+        </label>
+      </div>
+      <button type="submit" className="alarm-button" style={{ marginTop: 12 }}>
         {existingAlarmData ? "ویرایش" : "ثبت"}
       </button>
     </form>

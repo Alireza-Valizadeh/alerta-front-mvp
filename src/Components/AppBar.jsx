@@ -8,16 +8,16 @@ const TITLES = {
   "/app/alarms/edit": "ویرایش هشدار",
   "/app/profile": "پروفایل",
   "/app/settings": "تنظیمات",
-  "/app/credits": "پیامک ها"
+  "/app/credits": "پیامک ها",
 };
 
-const AppBar = () => {
+const AppBar = ({ title }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const path = location.pathname;
 
   // Determine title
-  let title = TITLES[path] || "آلرتا";
+  let topTitle = title || TITLES[path] || "آلرتا";
 
   // Show back button if not on main alarms page
   const showBack = path !== "/app/alarms";
@@ -45,15 +45,16 @@ const AppBar = () => {
           <button className="appbar-icon-btn" onClick={handleLogout} aria-label="خروج" title="خروج">
             <MdLogout size={24} color="#d32f2f" />
           </button>
-        ) :
-          (!showBack && showSettings && (
+        ) : (
+          !showBack &&
+          showSettings && (
             <button className="appbar-icon-btn" onClick={handleSettings} aria-label="تنظیمات">
               <MdSettings size={24} />
             </button>
-          ))
-        }
+          )
+        )}
       </div>
-      <div className="appbar-title">{title}</div>
+      <div className="appbar-title">{topTitle}</div>
       <div className="appbar-right">
         {showBack ? (
           <button className="appbar-icon-btn" onClick={handleBack} aria-label="بازگشت">
@@ -71,4 +72,4 @@ const AppBar = () => {
   );
 };
 
-export default AppBar; 
+export default AppBar;

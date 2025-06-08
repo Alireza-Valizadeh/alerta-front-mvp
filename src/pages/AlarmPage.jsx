@@ -10,9 +10,9 @@ const AlarmPage = () => {
 
   return (
     <div className="page-wrapper">
-      <AppBar />
+      <AppBar title={alarmToEdit ? "ویرایش هشدار" : "تنظیم هشدار خودرو"} />
       <main style={mainContentStyle} className="page-content">
-        <h1 style={headingStyle}>{alarmToEdit ? "ویرایش هشدار" : "تنظیم هشدار خودرو"}</h1>
+        {/* <h1 style={headingStyle}>{alarmToEdit ? "ویرایش هشدار" : "تنظیم هشدار خودرو"}</h1> */}
         <AlarmForm existingAlarmData={alarmToEdit} />
       </main>
       <BottomNav />
